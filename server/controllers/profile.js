@@ -106,8 +106,12 @@ module.exports = {
             investment: req.body.investment || curProfile.investment,
             //userId: user.id
           })
-          .then(curProfile => res.status(200).send(curProfile)) //() => ->  (curProfile) =>
+          .then(newProfile => res.status(200).send(newProfile)) //() => ->  (curProfile) =>
           .catch((err) => res.status(400).send({error: err}));
+        } else {
+          res.status(404).send({
+            error: "You currently do not have profile."
+          })  
         }
       })
       .catch((err) => res.status(400).send({error: err}));

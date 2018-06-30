@@ -19,6 +19,7 @@ const jwtCheck = (req, res, next) => {
             } else {
                 User.findOne({where:{id: decoded.id}})
                 .then(user => {
+
                     if(!user || user.email != decoded.email || user.username != decoded.username || user.password != decoded.password) {
                         res.status(401).json({ error: 'Fail to authorize '});
                     } else {
