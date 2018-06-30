@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 const uniqid = require('uniqid');
 const emailVerification = require('../helpers/emailVerification');
+const md5 = require('md5');
 //  create
 //  login
 //  public
@@ -19,7 +20,7 @@ createAdministratorAccount = (req, res) => {
         id: uniqid("user-"),
         email: req.body.email,
         username: req.body.username,
-        password:req.body.password,
+        password: md5(req.body.password),
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         public: false,
@@ -30,7 +31,7 @@ createAdministratorAccount = (req, res) => {
                 id: user.id,
                 email: req.body.email,
                 username: req.body.username,
-                password: req.body.password,
+                password: md5(req.body.password),
                 administrator: true
 
             }, secret, { expiresIn: '24h' });
@@ -49,7 +50,7 @@ createAccount = (req, res) => {
             id: uniqid("user-"),
             email: req.body.email,
             username: req.body.username,
-            password:req.body.password,
+            password: md5(req.body.password),
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             public: true,
@@ -61,7 +62,7 @@ createAccount = (req, res) => {
                     id: user.id,
                     email: req.body.email,
                     username: req.body.username,
-                    password: req.body.password,
+                    password: md5(req.body.password),
                     administrator: false
                 }, secret, { expiresIn: '24h' });
             res.status(201).send({
@@ -77,16 +78,17 @@ loginHelper = (user, req, res) => {
 
     if(!user)
         return res.status(404).send({ error: 'Wrong username or email' })
-    else if(user.password === req.body.password) {
-        
+    else if(user.password === md5(req.body.password)) {
+        console.log("user = " + user)
         const jwttoken = jwt.sign({ 
                                 id: user.id,
                                 username: user.username,
                                 email: user.email,
                                 password: user.password,
                                 administrator: user.administrator,
+
                              }, secret, { expiresIn: '24h' });
-                             
+        console.log("user done? ")
         return res.status(200).send({
             user: user,
             jwttoken: jwttoken 
@@ -215,11 +217,13 @@ module.exports = {
 
     login(req, res) {
         if(req.body.email) {
+            console.log("user = " + req.body.email)
             User.findOne({where:{email: req.body.email}})
             .then((user) => loginHelper(user, req, res))
             .catch(err => res.status(200).send(err)); 
 
         } else if(req.body.username) {
+            console.log("user = " + req.body.username)
             User.findOne({where:{username: req.body.username}})
             .then((user) => loginHelper(user, req, res))
             .catch(err => res.status(200).send(err)); 
@@ -300,7 +304,7 @@ module.exports = {
                     curUser.update({
                         username: req.body.username || curUser.username,
                         email: req.body.email || curUser.email,
-                        password: req.body.password || curUser.password,
+                        password: md5(req.body.password) || curUser.password,
                         firstname: req.body.firstname || curUser.firstname,
                         lastname: req.body.lastname || curUser.lastname,
                     })

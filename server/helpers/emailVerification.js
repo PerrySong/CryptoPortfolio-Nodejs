@@ -3,6 +3,7 @@ const config = require('../config.js');
 const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 const uniqid = require('uniqid');
+const md5 = require('md5');
 
 //This method will send a link to the user's email, ask the user to activate his/her account
 sendVerifyEmail = (req, res) => {
@@ -12,7 +13,7 @@ sendVerifyEmail = (req, res) => {
                 id: uniqid("user-"),
                 email: req.body.email,
                 username: req.body.username,
-                password:req.body.password,
+                password: md5(req.body.password),
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 public: true
