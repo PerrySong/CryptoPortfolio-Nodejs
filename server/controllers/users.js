@@ -78,15 +78,15 @@ loginHelper = (user, req, res) => {
     if(!user)
         return res.status(404).send({ error: 'Wrong username or email' })
     else if(user.password === req.body.password) {
-        console.log("user = " + user)
+        
         const jwttoken = jwt.sign({ 
                                 id: user.id,
-                                username: username,
+                                username: user.username,
                                 email: user.email,
                                 password: user.password,
                                 administrator: user.administrator,
-
                              }, secret, { expiresIn: '24h' });
+        console.log("heheeh")
         return res.status(200).send({
             user: user,
             jwttoken: jwttoken 

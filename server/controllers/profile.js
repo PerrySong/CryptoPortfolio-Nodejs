@@ -1,7 +1,7 @@
 const Profile = require('../models').Profile;
 
 module.exports = {
-    
+
   createOrUpdateProfile(req,res){
     console.log("create or update profile");
     const user = req.currentUser;
@@ -16,20 +16,14 @@ module.exports = {
       .then(curProfile => {
           console.log(typeof(req.body.email));
         if(curProfile){
-          curProfile.update({// user do not have github, interest and investment, that data should come from req:
-            
-            // email: curProfile.email || user.email,
-            // github: curProfile.github || user.github,
-            // interest: curProfile.interest || user.interest,
-            // investment: curProfile.investment || user.investment
-
+          curProfile.update({
             email: req.body.email || curProfile.email,
             github: req.body.github || curProfile.github,
             interest: req.body.interest || curProfile.interest,
-            investment: req.body.investment || curProfile.investment, 
-            userId: user.id //Add user id 
+            investment: req.body.investment || curProfile.investment,
+            // userId: user.id //Add user id
           })
-          .then(() => res.status(200).send(curProfile))
+          .then((newProfile) => res.status(200).send(newProfile))
           .catch((err) => res.status(400).send({error: err}));
         } else {
           return Profile // Should not be curProfile -> Profile
@@ -40,7 +34,7 @@ module.exports = {
             investment: req.body.investment,
             userId: user.id
           })
-          .then(curProfile => res.status(200).send(curProfile)) // Promise send cur Profile
+          .then(newProfile => res.status(200).send(newProfile)) // Promise send cur Profile
           .catch((err) => res.status(400).send({error: err}));
         }
       })
@@ -60,7 +54,7 @@ module.exports = {
         }
       })
       .then(curProfile => {
-        return curProfile
+        return Profile
         .create({
             email: req.body.email,
             github: req.body.github,
@@ -68,7 +62,7 @@ module.exports = {
             investment: req.body.investment,
             userId: user.id
         })
-        .then(() => res.status(200).send(curProfile))
+        .then(curProfile => res.status(200).send(curProfile))
         .catch((err) => res.status(400).send({error: err}));
       })
       .catch((err) => res.status(400).send({error: err}));
@@ -76,7 +70,7 @@ module.exports = {
       res.status(403).send({message: 'Please log in'});
     }
   },
-  
+
   getProfile(req, res) {
     console.log("get profile");
     const user = req.currentUser;
@@ -86,11 +80,9 @@ module.exports = {
         where: {
           userId: user.id
         }
-      }) 
+      })
       .then(curProfile => res.status(200).send(curProfile)) // Should send the profile we found
-      .catch(error => res.status(400).send({
-          error: error
-      })) // Should have catch the error
+      .catch((err) => res.status(400).send({error: error})) // Should have catch the error      
     } else {
       res.status(403).send({message: 'Please log in'});
     }
@@ -107,21 +99,14 @@ module.exports = {
       })
       .then(curProfile => {
         if(curProfile) {
-          curProfile.update({ // user do not have github, interest and investment, that data should come from req:
-            
-            // email: curProfile.email || user.email,
-            // github: curProfile.github || user.github,
-            // interest: curProfile.interest || user.interest,
-            // investment: curProfile.investment || user.investment
-
+          curProfile.update({
             email: req.body.email || curProfile.email,
             github: req.body.github || curProfile.github,
             interest: req.body.interest || curProfile.interest,
-            investment: req.body.investment || curProfile.investment, 
-            userId: user.id //Add user id 
-
+            investment: req.body.investment || curProfile.investment,
+            //userId: user.id
           })
-          .then((curProfile) => res.status(200).send(curProfile)) //() => ->  (curProfile) =>
+          .then(curProfile => res.status(200).send(curProfile)) //() => ->  (curProfile) =>
           .catch((err) => res.status(400).send({error: err}));
         }
       })
@@ -150,7 +135,7 @@ module.exports = {
             interest: "",
             investment: ""
           })
-          .then((curProfile) => res.status(200).send(curProfile))
+          .then(curProfile => res.status(200).send(curProfile))
           .catch((err) => res.status(400).send({error: err}));
         }
       })
@@ -159,7 +144,7 @@ module.exports = {
       res.status(403).send({message: 'Please log in'});
     }
   },
-  
+
   destroyProfile(req, res){
     console.log("destroy profile");
     const user = req.currentUser;
@@ -175,13 +160,13 @@ module.exports = {
             message: 'Profile Not Found',
           });
         } else {
-            return curProfile
+            return Profile
                 .destroy()
                 .then(() => res.status(204).send({
-                    message: "Your profile has been destoried" // Send back the message
+                    message: "Your profile has been destroyed" // Send back the message
                 }))
                 .catch(error => res.status(400).send(error));
-        } 
+        }
       })
       .catch((err) => res.status(400).send({error: err}));
     } else {

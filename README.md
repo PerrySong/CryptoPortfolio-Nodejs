@@ -187,13 +187,10 @@ Administration:
                     users (All the users in the database) 
                 }
                  
-
-    URL: user/profile/clear
-
     To be continue...            
 
     Authorization logic:
-    
+
         Every route start with baseURL/user/ will check the token sent by client, and 
         server will recognize the token and know which user you are. If you update your
         email or username or password, the token will expire.

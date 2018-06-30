@@ -6,10 +6,11 @@ const   jwt = require('jsonwebtoken'),
 //If a the request pass the test, we execute the next.
 
 const jwtCheck = (req, res, next) => {
-
+    
     if(req.header && req.headers.authorization) {
         const token = req.headers.authorization;
-
+        console.log("hey token is ")
+        console.log(token)
         //Verify the whole token!!
         jwt.verify(token, secret, (err, decoded) => {
             
@@ -19,7 +20,7 @@ const jwtCheck = (req, res, next) => {
                 User.findOne({where:{id: decoded.id}})
                 .then(user => {
                     if(!user || user.email != decoded.email || user.username != decoded.username || user.password != decoded.password) {
-                        res.status(404).json({ error: 'Fail to authorize '});
+                        res.status(401).json({ error: 'Fail to authorize '});
                     } else {
                         req.currentUser = user;
                         next();
