@@ -86,7 +86,7 @@ loginHelper = (user, req, res) => {
                                 password: user.password,
                                 administrator: user.administrator,
                              }, secret, { expiresIn: '24h' });
-        console.log("heheeh")
+                             
         return res.status(200).send({
             user: user,
             jwttoken: jwttoken 

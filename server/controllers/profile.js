@@ -75,13 +75,19 @@ module.exports = {
     console.log("get profile");
     const user = req.currentUser;
     if(user) {
-        console.log(user.id)
       Profile.findOne({
         where: {
           userId: user.id
         }
       })
-      .then(curProfile => res.status(200).send(curProfile)) // Should send the profile we found
+      .then(curProfile => {
+        if(curProfile)
+          res.status(200).send(curProfile)
+        else
+          res.status(404).send({
+            error: "You do not have profile yet"
+          })  
+      }) // Should send the profile we found
       .catch((err) => res.status(400).send({error: error})) // Should have catch the error      
     } else {
       res.status(403).send({message: 'Please log in'});
