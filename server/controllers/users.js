@@ -300,11 +300,14 @@ module.exports = {
             .findById(user.id)
             .then(curUser => {
                 if(curUser) {
-                    console.log(req.password)
+                    let newPassword;
+                    if(req.body.password) {
+                        newPassword = md5(req.body.password);
+                    } 
                     curUser.update({
                         username: req.body.username || curUser.username,
                         email: req.body.email || curUser.email,
-                        password: md5(req.body.password) || curUser.password,
+                        password:  newPassword || curUser.password,
                         firstname: req.body.firstname || curUser.firstname,
                         lastname: req.body.lastname || curUser.lastname,
                     })
