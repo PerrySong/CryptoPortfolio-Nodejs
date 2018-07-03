@@ -7,19 +7,17 @@ module.exports = (sequelize, DataTypes) => {
         unique: true
       },
   }, {});
-  
+
   Portfolio.associate = function(models) {
     Portfolio.belongsTo(models.User, {
       foreignKey: 'userId',
-      //If we delete a user, its profile should be deleted as well
-      //cascade the delete action
       onDelete: 'CASCADE',
     });
     Portfolio.hasMany(models.Coin, {
         foreignKey: 'portfolioId',
         as: 'coin',
     })
-    Protfolio.hasMany(models.Transaction, {
+    Portfolio.hasMany(models.Transaction, {
         foreignKey: 'portfolioId',
         as: 'transaction',
     })

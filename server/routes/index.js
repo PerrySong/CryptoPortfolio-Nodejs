@@ -2,6 +2,7 @@ const usersController = require('../controllers').users,
       jwtCheck = require('../middleware/authorization').jwtCheck,
       isAdmin = require('../middleware/authorization').isAdmin,
       profileController = require('../controllers').profile,
+      portfolioController =require('../controllers').portfolio,
       formatChecker = require('../helpers/formatChecker');
 
 
@@ -48,31 +49,7 @@ module.exports = (app) => {
 
     app.get('/list', usersController.list);
 
-    // /token -> param token -> headers
-    // url: /register 
-    //      post: req: {email, username, password, firstname, lastname}  
-    //            res: jwttoken
-    
-    // url: /login 
-    //      post: req: {email || username, password}
-    //            res: jwttoken
-    
-    // url: /user/pofile 
-    
-    //      send request with jwttoken (in headers)
-    
-    //      post: req: {email, username, firstname, lastname， password}
-    //            res: {email, username, firstname, lastname， password}
-    //
-    //      get: req: {}
-    //           res: {}
-
-
-    
-
-    // app.get('/test', usersController.test);
-    
-
-    // app.get('/:username/dashboard', usersController.dashboard);
+    //Portfolio routes
+    app.get('/user/asset', portfolioController.currentAsset);
 
 }
