@@ -9,8 +9,7 @@ const jwtCheck = (req, res, next) => {
     
     if(req.header && req.headers.authorization) {
         const token = req.headers.authorization;
-        console.log("hey token is ")
-        console.log(token)
+        
         //Verify the whole token!!
         jwt.verify(token, secret, (err, decoded) => {
             
