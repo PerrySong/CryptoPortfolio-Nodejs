@@ -1,6 +1,6 @@
 # API Documentation
  
-[Register](#login)
+[Register](#Public)
 
 
 ---
