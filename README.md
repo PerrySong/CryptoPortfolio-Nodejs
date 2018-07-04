@@ -16,12 +16,12 @@
     password     | string        | Required            | your password
     firstname    | string        | Required            | your first name
     lastname     | string        | Required            | your last name
-    public       | string        | Optional, default is true | If you willing to share you profile
+    public       | string        | Optional, true by defualt| If you willing to share you profile
     
     *Response*
 ```json
     {
-        "success": true,
+        "user": {user},
         "token": "xxx"
     }
 ```
