@@ -13,9 +13,9 @@
 [Clear Profile](#clear-profile)  
 [Administration](#administration)  
 [Administration Registration](#administration-register)  
-[Administrator List Users](#administration-list-users)
-[Authorization Logic](#authorization-logic)
-[Issues](#issues)
+[Administrator List Users](#administration-list-users)  
+[Authorization Logic](#authorization-logic)  
+[Issues](#issues)  
 
 
 
