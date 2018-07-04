@@ -1,11 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
     var Transaction = sequelize.define('Transaction', {
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
             allowNull: false,
             primaryKey: true,
             unique: true
-          },
+        },
         sell_type: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -30,15 +31,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE,
             allowNull: false,
         },
-        date: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        }
     }, {});
     Transaction.associate = function(models) {
       Transaction.belongsTo(models.Portfolio, {
         foreignKey: 'portfolioId',
-
         onDelete: 'CASCADE',
       });
     };

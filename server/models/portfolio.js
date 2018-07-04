@@ -1,7 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   var Portfolio = sequelize.define('Portfolio', {
     id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
         unique: true

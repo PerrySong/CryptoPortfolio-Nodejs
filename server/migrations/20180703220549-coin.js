@@ -5,9 +5,9 @@ module.exports = {
     return queryInterface.createTable('Coins', {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       type: {
         allowNull: false,
@@ -24,6 +24,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      portfolioId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Portfolios',
+          key: 'id',
+          as: 'portfolioId',
+        },
       },
     });
   },

@@ -4,10 +4,10 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Transactions', {
       id: {
-        type: Sequelize.STRING,
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        unique: true
+        type: Sequelize.INTEGER
       },
       sell_type: {
           type: Sequelize.INTEGER,
@@ -40,6 +40,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      portfolioId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Portfolios',
+          key: 'id',
+          as: 'portfolioId',
+        },
       },
     });
   },  

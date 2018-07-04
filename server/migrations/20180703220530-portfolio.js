@@ -3,9 +3,9 @@ module.exports = {
     return queryInterface.createTable('Portfolios', {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -14,6 +14,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      userId: {
+        type: Sequelize.STRING,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'userId',
+        },
       },
     });
   },
