@@ -1,11 +1,11 @@
 # API Documentation
  
+[Register](#login)
+
 
 ---
 
-## USER
-
-* ### Register
+* # Register
 
     *Request*
     `POST /register`
@@ -41,7 +41,9 @@
     }
 ```
 
-* ### Register with email verification
+---
+
+* # Register with email verification
 
     *Request*
     `POST /verify/register`
@@ -68,8 +70,9 @@
     }
 ```
 
+---
 
-* ### Login
+# login
 
     *Request*
     `POST /login`
@@ -104,7 +107,7 @@
 
 ---
 
-* ### Public
+* # Public
 
 	*Purpose:* Set your account to public
 
@@ -126,7 +129,9 @@
     }
 ```
 
-* ### Private
+---
+
+* # Private
 
 	*Purpose:* Set your account to private
 
@@ -148,8 +153,9 @@
     }
 ```
 
+---
 
-* #### Post Setting
+* # Post Setting
 
 	*Request*
     `POST /user/setting`
@@ -190,8 +196,9 @@
 
 
 
+---
 
-* #### Get Setting
+* # Get Setting
 
 	*Request*
     `GET /user/setting`
@@ -221,7 +228,9 @@
     }
 ```
 
-* ### Post profile
+---
+
+* # Post profile
 
 	*Request*
     	`POST /user/profile`
@@ -256,7 +265,9 @@
     }
 ```
 
-* ### Get profile
+---
+
+* # Get profile
 
 	*Request*
   	  `GET /user/profile`
@@ -285,7 +296,9 @@
     }
 ```
 
-* ### Update profile
+---
+
+* # Update profile
 
 	*Request*
     	`PUT /user/profile`
@@ -320,7 +333,9 @@
     }
 ```
 
-* ### Clear profile
+---
+
+* # Clear profile
 
 	*Request*
     	`GET /user/profile/clear`
@@ -348,11 +363,14 @@
     }
 ```
 
+---
 
-* ### Administration:
+* # Administration:
     This feature is for setting up adminstrator and website management.
 
-* ### Administrator registration:
+---
+
+* # Administrator registration:
 
     *Request*
         `POST /adminregister`
@@ -390,7 +408,9 @@
     }
 ```
 
-* ### Administrator list:
+---
+
+* # Administrator list:
 
     list all the users in database 
 
@@ -428,12 +448,15 @@
     }
 ```
 
-* ### Authorization logic:
+---
+
+* # Authorization logic:
 
     * Every route start with baseURL/user/ will check the token sent by client, and 
-    *  server will recognize the token and know which user you are. If you update your
-    *  email or username or password, the token will expire.
+      server will recognize the token and know which user you are. If you update your
+      email or username or password, the token will expire.
 
+---
 
-* ### Issues:
-    * We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.      
+* # Issues:
+   * `We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.`      
