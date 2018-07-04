@@ -14,7 +14,7 @@ const md5 = require('md5');
 
 // This is a helper metod that create a new administrator user account
 
-createAdministratorAccount = (req, res) => {
+createAdministratorAccountHelper = (req, res) => {
     return User
     .create({
         id: uniqid("user-"),
@@ -120,6 +120,7 @@ module.exports = {
                     } else {
                         emailVerification.sendVerifyEmail(req, res);
                         res.status(200).send({
+                            success: true,
                             message: 'We sent a link to your email, please check your email and activate your account'
                         }) 
                     }
@@ -208,7 +209,7 @@ module.exports = {
                         })
                         return;
                     } else {
-                        createAdministratorAccount(req, res);   
+                        createAdministratorAccountHelper(req, res);   
                     }
                 })
             }

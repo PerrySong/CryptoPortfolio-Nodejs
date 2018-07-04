@@ -5,7 +5,7 @@
 
 ##USER
 
-* Login
+* Register
 
     *Request*
     `POST /register`
@@ -21,193 +21,414 @@
     *Response*
 ```json
     {
-        "user": {user},
+        "user": {
+            "email": "your email",
+            "password": "your password",
+            "firstname": "your first name",
+            "lastname": "your last name",
+            "public": "ture/false",
+            "administrator": "true/false",
+            "createAt": "some date",
+            "upedateAt": "soome date"
+        },
         "token": "xxx"
     }
 ```
 
 ```json
     {
-        "success": false,
-        "error": "This user does not exist!"
+        "error": "Some error message"
     }
 ```
 
-* Registration
+* Register with email verification
 
     *Request*
-    `POST /signup`
+    `POST /verify/register`
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    email        | string        | Required            | your email 
+    password     | string        | Required            | your password
+    firstname    | string        | Required            | your first name
+    lastname     | string        | Required            | your last name
+    public       | string        | Optional, true by defualt| If you willing to share you profile
+
+    *Response*
+
+```json
+    {
+        "success": "true",
+        "message": "We sent a link to your email, please check your email and activate your account"
+    }
+```
+
+```json
+    {
+        "error": "Some error message"
+    }
+```
+
+
+* Login
+
+    *Request*
+    `POST /login`
     
     Parameters   | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    email        | string        | Required            | your email address
+    email/email  | string        | Required            | your email or username
     password     | string        | Required            | your password
-    device       | string        | Required            | the device you are calling this API from
-    nickname     | string        | Optional            | Your nickname
-    birthday     | string        | Optional            | Must be in `YYYY-MM-DD`format, otherwise will be put `NULL`
-    gender       | string        | Optional            | Must be either `Male`, `Female` or `Neutral`, otherwise will be put `NULL`
-    fromCity     | string        | Optional            | Your hometown
-    avatorUrl    | string        | Optional            | put avator link here
-    
-    *Response*
+
+
 ```json
     {
-        "success": true,
+        "user": {
+            "email": "your email",
+            "password": "your password",
+            "firstname": "your first name",
+            "lastname": "your last name",
+            "public": "ture/false",
+            "administrator": "true/false",
+            "createAt": "some date",
+            "upedateAt": "soome date"
+        },
         "token": "xxx"
     }
 ```
 
 ```json
     {
-        "success": false,
-        "error": "Error message showing that why it didn't sign up successfully"
+        "error": "Error message showing that why it didn't login successfully"
     }
 ```
 
 ---
 
-##Businesses
+##Public
 
-* Add Business
+* Set your account to public
 
     *Request*
-    `POST /business/add`
+    `GET /user/public`
     
-    Parameters   | Data Type     | Required / Optional | Description
+    header       | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    token        | string        | Required            | this operation must be authorized
-    name         | string        | Required            | name of your business
-    city         | string        | Required            | city where your business located
-    address      | string        | Required            | address of your business
-    state        | string        | Optional            | state of your business
-    description  | string        | Optional            | write something about your business
-    
+    authorization| jwt token     | Required            | Your jwt token
+
     *Response*
 ```json
-    {
-        "success": true,
-        "id": "id of your business"
-    }
+    welcome API
 ```
 
 ```json
     {
-        "success": false,
         "error": "reason why your request failed"
     }
 ```
 
-* Get Business
+##Private
+
+* Set your account to public
 
     *Request*
-    `GET /business/get`
+    `GET /user/private`
     
-    Parameters   | Data Type     | Required / Optional | Description
+    header       | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    limit        | Int           | Optional            | The number of businesses you want to fetch, if you're not specifying this param, it will be set to 10 by default, and it has a maximum of 50. 
-    city         | string        | Optional            | city where you want to fetch businesses from
-    id           | int           | Optional            | id of your business, if this param is specified, `city` `name` will be ignored
-    
+    authorization| jwt token     | Required            | Your jwt token
+
     *Response*
-    
-> Nothing matched
-
 ```json
-    []
-```
-
-> Businesses that matched
-
-```json
-    [
-      {
-        "address": "Clement",
-        "city": "San Francisco",
-        "latitude": 0.0,
-        "businessID": 12,
-        "businessName": "The Taste of Jiangnan",
-        "rating": 0.0,
-        "state": "CA",
-        "categories": null,
-        "avatar": null,
-        "longitude": 0.0
-      },
-      {
-        "address": "484 Ellis St, Tenderloin",
-        "city": "San Francisco",
-        "latitude": 37.7847191,
-        "businessID": 42,
-        "businessName": "Tadu Ethiopian Kitchen",
-        "rating": 0.0,
-        "state": "CA",
-        "categories": "Food",
-        "avatar": "http://s3-media3.fl.yelpcdn.com/bphoto/pUg-HAc0dCxV4iORG8NJZA/ms.jpg",
-        "longitude": -122.414172
-      },
-    ]
-```
-
-##Reviews
-
-* Post Review
-
-*Request*
-    `POST /review/post`
-    
-    Parameters   | Data Type     | Required / Optional | Description
-    ------------ | ------------- | ------------------- | -----------
-    token        | string        | Required            | this operation must be authorized
-    businessID   | Int           | Required            | id of the business
-    starRating   | Int           | Optional            | from 1 - 10
-    reviewText   | string        | Optional            | your review
-    
-    *Response*
-    
-```json
-    {
-        "success": true,
-    }
+    welcome API
 ```
 
 ```json
     {
-        "success": false,
         "error": "reason why your request failed"
     }
 ```
 
-* Get Review
+##Setting
+
+* Post Setting
 
 *Request*
-    `POST /review/get`
+    `POST /user/setting`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
     
     Parameters   | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    limit        | Int           | Optional            | the number of reviews you want to fetch, 10 by default
-    businessID   | Int           | Optional            | id of the business
-    userEmail    | string        | Optional            | user who wrote this review
-    userID       | Int           | Optional            | user who wrote this review by ID
-    sortBy       | string        | Optional            | 'vote' or something else
+    email        | string        | Optional            | your email 
+    password     | string        | Optional            | your password
+    firstname    | string        | Optional            | your first name
+    lastname     | string        | Optional            | your last name
+    public       | string        | Optional            | If you willing to share you profile
+
+    *Response*
+    
+```json
+    {
+        "email": "your email",
+        "password": "your password",
+        "firstname": "your first name",
+        "lastname": "your last name",
+        "public": "ture/false",
+        "administrator": "true/false",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* Get Setting
+
+*Request*
+    `GET /user/setting`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+    
     
     *Response*
 
 ```json
+    {
+        "email": "your email",
+        "password": "your password",
+        "firstname": "your first name",
+        "lastname": "your last name",
+        "public": "ture/false",
+        "administrator": "true/false",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* Post profile
+
+*Request*
+    `POST /user/profile`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    email        | String        | Optional            | Your contact email
+    github       | String        | Optional            | Your github account
+    interest     | String        | Optional            | Your interest areas
+    investment   | String        | Optional            | Your current investment
+
+
+    *Response*
+
+```json
+    {
+        "email": "your email",
+        "github": "your github account",
+        "interest": "your interest areas",
+        "investment": "req.body.investment",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* Get profile
+
+*Request*
+    `GET /user/profile`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+    
+    *Response*
+
+```json
+    {
+        "email": "your email",
+        "github": "your github account",
+        "interest": "your interest areas",
+        "investment": "req.body.investment",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* Update profile
+
+*Request*
+    `PUT /user/profile`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    email        | String        | Optional            | Your contact email
+    github       | String        | Optional            | Your github account
+    interest     | String        | Optional            | Your interest areas
+    investment   | String        | Optional            | Your current investment
+
+
+    *Response*
+
+```json
+    {
+        "email": "your email",
+        "github": "your github account",
+        "interest": "your interest areas",
+        "investment": "req.body.investment",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* Clear profile
+
+*Request*
+    `GET /user/profile/clear`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+    
+    *Response*
+
+```json
+    {
+        "email": "",
+        "github": "",
+        "interest": "",
+        "investment": "",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+
+## Administration:
+    This feature is for setting up adminstrator and website management.
+
+* Administrator registration:
+
+    *Request*
+        `POST /adminregister`
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    email        | string        | Optional            | your email 
+    password     | string        | Optional            | your password
+    firstname    | string        | Optional            | your first name
+    lastname     | string        | Optional            | your last name
+    public       | string        | Optional            | If you willing to share you profile
+
+    
+    *Response*
+
+```json 
+    {
+        "user": {
+            "email": "your email",
+            "password": "your password",
+            "firstname": "your first name",
+            "lastname": "your last name",
+            "public": "ture/false",
+            "administrator": "true",
+            "createAt": "some date",
+            "upedateAt": "soome date"
+        },
+        
+        "token": "xxx"
+    }
+```
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* Administrator list:
+
+    list all the users in database 
+
+    *Request*
+        `GET /administrator/list`
+        
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+     *Response*
+
+```json 
     [
-      {
-        "reviewDate": "2015-12-12",
-        "userNickname": "scott",
-        "userEmail": "scott@gmail.com",
-        "starRating": 5,
-        "reviewText": "First review!!!",
-        "reviewVote": 0
-      },
-      {
-        "reviewDate": "2015-12-13",
-        "userNickname": "scott",
-        "userEmail": "newUserWithTOken@gmail.com",
-        "starRating": 10,
-        "reviewText": "This is awosome!!",
-        "reviewVote": 0
-      }
+        "user": {
+            "email": "your email",
+            "password": "your password",
+            "firstname": "your first name",
+            "lastname": "your last name",
+            "public": "ture/false",
+            "administrator": "true",
+            "createAt": "some date",
+            "upedateAt": "soome date"
+        },
+        
     ]
 ```
+
+```json 
+    {
+        "error": "error messages"
+    }
+```
+
+##Authorization logic:
+
+    * Every route start with baseURL/user/ will check the token sent by client, and 
+      server will recognize the token and know which user you are. If you update your
+      email or username or password, the token will expire.
+
+
+##Issue:
+   * `We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.`      
