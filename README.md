@@ -8,13 +8,15 @@
 * Login
 
     *Request*
-    `POST /login`
+    `POST /register`
     
     Parameters   | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    email        | string        | Required            | your email address
+    email        | string        | Required            | your email 
     password     | string        | Required            | your password
-    device       | string        | Required            | the device you are calling this API from
+    firstname    | string        | Required            | your first name
+    lastname     | string        | Required            | your last name
+    public       | string        | Optional, default is true | If you willing to share you profile
     
     *Response*
 ```json
