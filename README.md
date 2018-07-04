@@ -1,4 +1,4 @@
-How to run this API in local:
+#CryptoTracker API Documentation
 
 1. $ cd yourprojectdir, and run: npm install.
 2. Go to the config/config.json file to set up your local postgresql.
@@ -17,6 +17,19 @@ The following shortcuts represent:
 
 This API contains following routes:
 
+*Register 
+    *Request*
+
+    `POST /register`
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    email        | string        | Required            | your email 
+    password     | string        | Required            | your password
+    firstname    | string        | Required            | your first name
+    lastname     | string        | Required            | your last name
+
+    you are calling this API from
     URL: /register 
           post: req: body: 
                             {
@@ -194,3 +207,7 @@ Administration:
         Every route start with baseURL/user/ will check the token sent by client, and 
         server will recognize the token and know which user you are. If you update your
         email or username or password, the token will expire.
+
+
+Issue:
+    We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.      
