@@ -17,7 +17,7 @@ The following shortcuts represent:
 
 This API contains following routes:
 
-*Register 
+#Register 
     *Request*
 
     `POST /register`
@@ -28,6 +28,7 @@ This API contains following routes:
     password     | string        | Required            | your password
     firstname    | string        | Required            | your first name
     lastname     | string        | Required            | your last name
+    public       | string        | Optional, default is true | If you willing to share you profile
 
     you are calling this API from
     URL: /register 
