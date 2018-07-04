@@ -1,11 +1,11 @@
-#API Documentation
-
+# API Documentation
+ 
 
 ---
 
-##USER
+## USER
 
-* Register
+* ### Register
 
     *Request*
     `POST /register`
@@ -41,7 +41,7 @@
     }
 ```
 
-* Register with email verification
+* ### Register with email verification
 
     *Request*
     `POST /verify/register`
@@ -69,7 +69,7 @@
 ```
 
 
-* Login
+* ### Login
 
     *Request*
     `POST /login`
@@ -104,9 +104,9 @@
 
 ---
 
-##Public
+* ### Public
 
-* Set your account to public
+	*Purpose:* Set your account to public
 
     *Request*
     `GET /user/public`
@@ -126,9 +126,9 @@
     }
 ```
 
-##Private
+* ### Private
 
-* Set your account to public
+	*Purpose:* Set your account to private
 
     *Request*
     `GET /user/private`
@@ -148,27 +148,26 @@
     }
 ```
 
-##Setting
 
-* Post Setting
+* #### Post Setting
 
-*Request*
+	*Request*
     `POST /user/setting`
-
-    header       | Data Type     | Required / Optional | Description
+    
+	header       | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
     authorization| jwt token     | Required            | Your jwt token
-
     
     Parameters   | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    email        | string        | Optional            | your email 
-    password     | string        | Optional            | your password
-    firstname    | string        | Optional            | your first name
-    lastname     | string        | Optional            | your last name
-    public       | string        | Optional            | If you willing to share you profile
-
-    *Response*
+    email        | string        | Required            | your email 
+    password     | string        | Required            | your password
+    firstname    | string        | Required            | your first name
+    lastname     | string        | Required            | your last name
+    public       | string        | Optional, true by defualt| If you willing |
+    
+	*Response*
+	
     
 ```json
     {
@@ -189,17 +188,20 @@
     }
 ```
 
-* Get Setting
 
-*Request*
+
+
+* #### Get Setting
+
+	*Request*
     `GET /user/setting`
 
-    header       | Data Type     | Required / Optional | Description
+   header       | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
     authorization| jwt token     | Required            | Your jwt token
     
     
-    *Response*
+   *Response*
 
 ```json
     {
@@ -219,74 +221,10 @@
     }
 ```
 
-* Post profile
+* ### Post profile
 
-*Request*
-    `POST /user/profile`
-
-    header       | Data Type     | Required / Optional | Description
-    ------------ | ------------- | ------------------- | -----------
-    authorization| jwt token     | Required            | Your jwt token
-
-    Parameters   | Data Type     | Required / Optional | Description
-    ------------ | ------------- | ------------------- | -----------
-    email        | String        | Optional            | Your contact email
-    github       | String        | Optional            | Your github account
-    interest     | String        | Optional            | Your interest areas
-    investment   | String        | Optional            | Your current investment
-
-
-    *Response*
-
-```json
-    {
-        "email": "your email",
-        "github": "your github account",
-        "interest": "your interest areas",
-        "investment": "req.body.investment",
-        "createAt": "some date",
-        "upedateAt": "soome date"
-    }
-```
-```json
-    {
-        "error": "reason why your request failed"
-    }
-```
-
-* Get profile
-
-*Request*
-    `GET /user/profile`
-
-    header       | Data Type     | Required / Optional | Description
-    ------------ | ------------- | ------------------- | -----------
-    authorization| jwt token     | Required            | Your jwt token
-
-    
-    *Response*
-
-```json
-    {
-        "email": "your email",
-        "github": "your github account",
-        "interest": "your interest areas",
-        "investment": "req.body.investment",
-        "createAt": "some date",
-        "upedateAt": "soome date"
-    }
-```
-
-```json
-    {
-        "error": "reason why your request failed"
-    }
-```
-
-* Update profile
-
-*Request*
-    `PUT /user/profile`
+	*Request*
+    	`POST /user/profile`
 
     header       | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
@@ -300,7 +238,7 @@
     investment   | String        | Optional            | Your current investment
 
 
-    *Response*
+   *Response*
 
 ```json
     {
@@ -318,17 +256,81 @@
     }
 ```
 
-* Clear profile
+* ### Get profile
 
-*Request*
-    `GET /user/profile/clear`
+	*Request*
+  	  `GET /user/profile`
 
     header       | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
     authorization| jwt token     | Required            | Your jwt token
 
     
-    *Response*
+   *Response*
+
+```json
+    {
+        "email": "your email",
+        "github": "your github account",
+        "interest": "your interest areas",
+        "investment": "req.body.investment",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* ### Update profile
+
+	*Request*
+    	`PUT /user/profile`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    email        | String        | Optional            | Your contact email
+    github       | String        | Optional            | Your github account
+    interest     | String        | Optional            | Your interest areas
+    investment   | String        | Optional            | Your current investment
+
+
+   *Response*
+
+```json
+    {
+        "email": "your email",
+        "github": "your github account",
+        "interest": "your interest areas",
+        "investment": "req.body.investment",
+        "createAt": "some date",
+        "upedateAt": "soome date"
+    }
+```
+```json
+    {
+        "error": "reason why your request failed"
+    }
+```
+
+* ### Clear profile
+
+	*Request*
+    	`GET /user/profile/clear`
+
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+    
+   *Response*
 
 ```json
     {
@@ -347,10 +349,10 @@
 ```
 
 
-## Administration:
+* ### Administration:
     This feature is for setting up adminstrator and website management.
 
-* Administrator registration:
+* ### Administrator registration:
 
     *Request*
         `POST /adminregister`
@@ -364,7 +366,7 @@
     public       | string        | Optional            | If you willing to share you profile
 
     
-    *Response*
+   *Response*
 
 ```json 
     {
@@ -388,7 +390,7 @@
     }
 ```
 
-* Administrator list:
+* ### Administrator list:
 
     list all the users in database 
 
@@ -426,12 +428,12 @@
     }
 ```
 
-##Authorization logic:
+* ### Authorization logic:
 
     * Every route start with baseURL/user/ will check the token sent by client, and 
-      server will recognize the token and know which user you are. If you update your
-      email or username or password, the token will expire.
+    *  server will recognize the token and know which user you are. If you update your
+    *  email or username or password, the token will expire.
 
 
-##Issue:
-   * `We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.`      
+* ### Issues:
+    * We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.      
