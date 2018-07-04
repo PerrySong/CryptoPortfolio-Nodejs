@@ -403,7 +403,7 @@
 
 ```json 
     [
-        "user": {
+        {
             "email": "your email",
             "password": "your password",
             "firstname": "your first name",
@@ -413,6 +413,9 @@
             "createAt": "some date",
             "upedateAt": "soome date"
         },
+        {
+            
+        }, 
         
     ]
 ```
