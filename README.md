@@ -1,7 +1,7 @@
 # API Documentation
  
 [Register](#register)  
-[Register with email verification](#registerwithemailverification)  
+[Register with email verification](#register-with-email-verification)  
 [Login](#login)
 
 
