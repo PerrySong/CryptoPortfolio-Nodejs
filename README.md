@@ -1,6 +1,9 @@
 # API Documentation
  
-[Register](#public)
+[Register](#register)  
+[Register with email verification](#registerwithemailverification)  
+[Login](#login)
+
 
 
 ---
