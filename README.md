@@ -15,8 +15,10 @@
 [Administration](#administration)  
 [Administration Registration](#administration-register)  
 [Administrator List Users](#administration-list-users)  
+[Administrator Send Email to All Users](#administration-send-email-to-all-users)
 [Authorization Logic](#authorization-logic)  
-[Issues](#issues)  
+[Issues](#issues) 
+
 
 
 
