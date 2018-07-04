@@ -1,214 +1,211 @@
-#CryptoTracker API Documentation
-
-1. $ cd yourprojectdir, and run: npm install.
-2. Go to the config/config.json file to set up your local postgresql.
-3. Drop the previous table of your using database 
-4. Run $ sequelize db:migrate
-5. Run $ npm run start, and you are ready to go  
+#API Documentation
 
 
-The following shortcuts represent:
+---
 
-    API:
-        req: request format
-        res: response format
-        <object>: object
-        post: request type
+##USER
 
-This API contains following routes:
+* Login
 
-#Register 
     *Request*
-
-    `POST /register`
-
+    `POST /login`
+    
     Parameters   | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    email        | string        | Required            | your email 
+    email        | string        | Required            | your email address
     password     | string        | Required            | your password
-    firstname    | string        | Required            | your first name
-    lastname     | string        | Required            | your last name
-    public       | string        | Optional, default is true | If you willing to share you profile
+    device       | string        | Required            | the device you are calling this API from
+    
+    *Response*
+```json
+    {
+        "success": true,
+        "token": "xxx"
+    }
+```
 
-    you are calling this API from
-    URL: /register 
-          post: req: body: 
-                            {
-                                email: <email>, 
-                                username: <username>, 
-                                password: <password>, 
-                                firstname: <firstname>, 
-                                lastname: <lastname>，
-                                public： <false||true>
-                            }  
+```json
+    {
+        "success": false,
+        "error": "This user does not exist!"
+    }
+```
 
-                res: 
-                        {
-                            user: <user>,
-                            jwttoken: <jwttoken>
-                        }
+* Registration
 
-    URL: /login 
-            post: 
-                req: body : 
-                            {
-                                email || username: <email || username>,
-                                password
-                            }
+    *Request*
+    `POST /signup`
+    
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    email        | string        | Required            | your email address
+    password     | string        | Required            | your password
+    device       | string        | Required            | the device you are calling this API from
+    nickname     | string        | Optional            | Your nickname
+    birthday     | string        | Optional            | Must be in `YYYY-MM-DD`format, otherwise will be put `NULL`
+    gender       | string        | Optional            | Must be either `Male`, `Female` or `Neutral`, otherwise will be put `NULL`
+    fromCity     | string        | Optional            | Your hometown
+    avatorUrl    | string        | Optional            | put avator link here
+    
+    *Response*
+```json
+    {
+        "success": true,
+        "token": "xxx"
+    }
+```
 
-                res: 
-                    {
-                        user: <user>
-                        jwttoken: <jwttoken>
-                    }    
+```json
+    {
+        "success": false,
+        "error": "Error message showing that why it didn't sign up successfully"
+    }
+```
 
-    URL: /user/public
-            get: 
-                req : header { authorization: <jwttoken> }
-                 
-                 res : redirect back to privious route
-                            
-                    //This request will change a user's status to public
-            
+---
 
-    URL: /user/private
-            get: 
-                req : header { authorization: <jwttoken> }
-                 
-                res : redirect back to privious route
-                
-                    //This request will change a user's status to private
+##Businesses
 
-    URL: /user/setting
-            get: 
-                req : header { authorization: <jwttoken> }
-                        {
-                            email: <email>, 
-                            username: <username>, 
-                            password: <password>, 
-                            firstname: <firstname>, 
-                            lastname: <lastname>，
-                            public： <false||true>
-                        }  
-                
-                res : user
+* Add Business
 
-            put: 
-                req : header { authorization: <jwttoken> }
-                
-                res : user(updated)     
+    *Request*
+    `POST /business/add`
+    
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    token        | string        | Required            | this operation must be authorized
+    name         | string        | Required            | name of your business
+    city         | string        | Required            | city where your business located
+    address      | string        | Required            | address of your business
+    state        | string        | Optional            | state of your business
+    description  | string        | Optional            | write something about your business
+    
+    *Response*
+```json
+    {
+        "success": true,
+        "id": "id of your business"
+    }
+```
 
-    URL: /list
-            get: 
-                res : users (All the users in the database)  
+```json
+    {
+        "success": false,
+        "error": "reason why your request failed"
+    }
+```
 
-    URL: /verify/register
-            post:
-                res: { message: a link is send to your email... }  
+* Get Business
 
-    URL: /user/profile  
-            
-            post : 
-                req :  header: { authorization: <jwttoken> }
-                       body: {
-                                email: req.body.email,
-                                github: req.body.github,
-                                interest: req.body.interest,
-                                investment: req.body.investment
-                            }
+    *Request*
+    `GET /business/get`
+    
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    limit        | Int           | Optional            | The number of businesses you want to fetch, if you're not specifying this param, it will be set to 10 by default, and it has a maximum of 50. 
+    city         | string        | Optional            | city where you want to fetch businesses from
+    id           | int           | Optional            | id of your business, if this param is specified, `city` `name` will be ignored
+    
+    *Response*
+    
+> Nothing matched
 
-                res :  {
-                            email: req.body.email,
-                            github: req.body.github,
-                            interest: req.body.interest,
-                            investment: req.body.investment
-                        }
+```json
+    []
+```
 
-            get :
-                req :  header: { authorization: <jwttoken> }
+> Businesses that matched
 
-                res : {
-                            email: req.body.email,
-                            github: req.body.github,
-                            interest: req.body.interest,
-                            investment: req.body.investment
-                        }
-                
-            update : 
-                req :  header: { authorization: <jwttoken> }
-                       body: 
-                            {
-                                email: req.body.email,
-                                github: req.body.github,
-                                interest: req.body.interest,
-                                investment: req.body.investment
-                            }
+```json
+    [
+      {
+        "address": "Clement",
+        "city": "San Francisco",
+        "latitude": 0.0,
+        "businessID": 12,
+        "businessName": "The Taste of Jiangnan",
+        "rating": 0.0,
+        "state": "CA",
+        "categories": null,
+        "avatar": null,
+        "longitude": 0.0
+      },
+      {
+        "address": "484 Ellis St, Tenderloin",
+        "city": "San Francisco",
+        "latitude": 37.7847191,
+        "businessID": 42,
+        "businessName": "Tadu Ethiopian Kitchen",
+        "rating": 0.0,
+        "state": "CA",
+        "categories": "Food",
+        "avatar": "http://s3-media3.fl.yelpcdn.com/bphoto/pUg-HAc0dCxV4iORG8NJZA/ms.jpg",
+        "longitude": -122.414172
+      },
+    ]
+```
 
-                res :   
-                        {
-                            email: req.body.email,
-                            github: req.body.github,
-                            interest: req.body.interest,
-                            investment: req.body.investment
-                        }
+##Reviews
 
-            delete : 
-                req :  header: { authorization: <jwttoken> } 
+* Post Review
 
-                res : 
-                        {
-                            message: "Your profile has been destoried" 
-                        }    
+*Request*
+    `POST /review/post`
+    
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    token        | string        | Required            | this operation must be authorized
+    businessID   | Int           | Required            | id of the business
+    starRating   | Int           | Optional            | from 1 - 10
+    reviewText   | string        | Optional            | your review
+    
+    *Response*
+    
+```json
+    {
+        "success": true,
+    }
+```
 
-    URL: user/profile/clear
+```json
+    {
+        "success": false,
+        "error": "reason why your request failed"
+    }
+```
 
-            get : 
-                req : header: { authorization: <jwttoken> }  
+* Get Review
 
-                res : {
-                            email: req.body.email,
-                            github: req.body.github,
-                            interest: req.body.interest,
-                            investment: req.body.investment
-                        }                           
+*Request*
+    `POST /review/get`
+    
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    limit        | Int           | Optional            | the number of reviews you want to fetch, 10 by default
+    businessID   | Int           | Optional            | id of the business
+    userEmail    | string        | Optional            | user who wrote this review
+    userID       | Int           | Optional            | user who wrote this review by ID
+    sortBy       | string        | Optional            | 'vote' or something else
+    
+    *Response*
 
-Administration:
-    This feature is for setting up adminstrator and website management. Right now administrator can view all the users in the database.
-
-    URL: /adminregister:
-        post : 
-            req : {
-                        email: <email>, 
-                        username: <username>, 
-                        password: <password>, 
-                        firstname: <firstname>, 
-                        lastname: <lastname>，
-                        public： <false||true>
-                    }  
-
-            res : {
-                        email: <email>, 
-                        username: <username>, 
-                        password: <password>, 
-                        firstname: <firstname>, 
-                        lastname: <lastname>，
-                        public： <false||true>
-                    }       
-
-    URL: /administrator/list
-        get : 
-            res : {
-                    users (All the users in the database) 
-                }
-                 
-    To be continue...            
-
-    Authorization logic:
-
-        Every route start with baseURL/user/ will check the token sent by client, and 
-        server will recognize the token and know which user you are. If you update your
-        email or username or password, the token will expire.
-
-
-Issue:
-    We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.      
+```json
+    [
+      {
+        "reviewDate": "2015-12-12",
+        "userNickname": "scott",
+        "userEmail": "scott@gmail.com",
+        "starRating": 5,
+        "reviewText": "First review!!!",
+        "reviewVote": 0
+      },
+      {
+        "reviewDate": "2015-12-13",
+        "userNickname": "scott",
+        "userEmail": "newUserWithTOken@gmail.com",
+        "starRating": 10,
+        "reviewText": "This is awosome!!",
+        "reviewVote": 0
+      }
+    ]
+```
