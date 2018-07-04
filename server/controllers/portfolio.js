@@ -5,7 +5,7 @@ const Transaction = ('../model').Transaction;
 
 module.exports = {
     makeTransaction(req, res) {
-
+        
     },
 
     currentAsset(req, res) {

@@ -3,8 +3,8 @@ const usersController = require('../controllers').users,
       isAdmin = require('../middleware/authorization').isAdmin,
       profileController = require('../controllers').profile,
       portfolioController =require('../controllers').portfolio,
-      formatChecker = require('../helpers/formatChecker');
-
+      formatChecker = require('../helpers/formatChecker'),
+      administratorController = require('../controllers').administrator;
 
     
 
@@ -46,6 +46,8 @@ module.exports = (app) => {
     //Administrator register route
     app.post('/adminregister', usersController.createAdministratorAccount);
     app.get('/administrator/list', usersController.list)
+    //Administrator manully send email notifications to every user.
+    app.post('/administrator/sendEmail', administratorController.sendEmail)
 
     app.get('/list', usersController.list);
 
