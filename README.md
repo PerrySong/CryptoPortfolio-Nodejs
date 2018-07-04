@@ -2,7 +2,21 @@
  
 [Register](#register)  
 [Register with email verification](#register-with-email-verification)  
-[Login](#login)
+[Login](#login)  
+[Public](#public)  
+[Private](#private)  
+[Post Setting](#post-setting)  
+[Get Setting](#get-setting)  
+[Post Profile](#post-profile)  
+[Get Profile](#get-profile)  
+[Update Profile](#update-profile)  
+[Clear Profile](#clear-profile)  
+[Administration](#administration)  
+[Administration Registration](#administration-register)  
+[Administrator List Users](#administration-list-users)
+[Authorization Logic](#authorization-logic)
+[Issues](#issues)
+
 
 
 
@@ -75,7 +89,7 @@
 
 ---
 
-# login
+* # login
 
     *Request*
     `POST /login`
@@ -233,7 +247,7 @@
 
 ---
 
-* # Post profile
+* # Post Profile
 
 	*Request*
     	`POST /user/profile`
@@ -270,7 +284,7 @@
 
 ---
 
-* # Get profile
+* # Get Profile
 
 	*Request*
   	  `GET /user/profile`
@@ -301,7 +315,7 @@
 
 ---
 
-* # Update profile
+* # Update Profile
 
 	*Request*
     	`PUT /user/profile`
@@ -338,7 +352,7 @@
 
 ---
 
-* # Clear profile
+* # Clear Profile
 
 	*Request*
     	`GET /user/profile/clear`
@@ -373,7 +387,7 @@
 
 ---
 
-* # Administrator registration:
+* # Administrator Registration:
 
     *Request*
         `POST /adminregister`
@@ -413,7 +427,7 @@
 
 ---
 
-* # Administrator list:
+* # Administrator List Users:
 
     list all the users in database 
 
@@ -453,7 +467,7 @@
 
 ---
 
-* # Authorization logic:
+* # Authorization Logic:
 
     * Every route start with baseURL/user/ will check the token sent by client, and 
       server will recognize the token and know which user you are. If you update your
