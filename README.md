@@ -1,5 +1,6 @@
 # API Documentation
- 
+
+
 [Register](#register)  
 [Register with email verification](#register-with-email-verification)  
 [Login](#login)  
@@ -464,6 +465,22 @@
         "error": "error messages"
     }
 ```
+
+* # Administrator Send Email to All Users:
+    *Request*
+        `POST /administrator/sendall`
+        
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    subject      | string        | Optional            | subject
+    message      | string        | Optional            | message
+    html         | string        | Optional            | html included in email
+    
+
 
 ---
 

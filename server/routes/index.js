@@ -47,7 +47,7 @@ module.exports = (app) => {
     app.post('/adminregister', usersController.createAdministratorAccount);
     app.get('/administrator/list', usersController.list)
     //Administrator manully send email notifications to every user.
-    app.post('/administrator/sendEmail', administratorController.sendEmail)
+    app.post('/administrator/sendall', administratorController.sendEmail)
 
     app.get('/list', usersController.list);
 
