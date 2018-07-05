@@ -34,7 +34,7 @@
     ------------ | ------------- | ------------------- | -----------
     username     | string        | Required            | length 6-30, no space
     email        | string        | Required            | your email 
-    password     | string        | Required            | your password
+    password     | string        | Required            | length 8-20, must have upper, lower case and digits, no space 
     firstname    | string        | Required            | your first name
     lastname     | string        | Required            | your last name
     public       | string        | Optional, true by defualt| If you willing to share you profile
@@ -68,7 +68,7 @@
 
     *Request*
     `POST /verify/register`
-      
+
     Parameters   | Data Type     | Required / Optional | Description 
     ------------ | ------------- | ------------------- | -----------
     username     | string        | Required            | length 6-30, no space 
