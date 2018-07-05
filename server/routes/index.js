@@ -4,7 +4,8 @@ const usersController = require('../controllers').users,
       profileController = require('../controllers').profile,
       portfolioController =require('../controllers').portfolio,
       formatChecker = require('../helpers/formatChecker'),
-      administratorController = require('../controllers').administrator;
+      administratorController = require('../controllers').administrator,
+      cryptoInfoController = require('../controllers').cryptoInfo;
 
     
 
@@ -53,5 +54,8 @@ module.exports = (app) => {
 
     //Portfolio routes
     app.get('/user/asset', portfolioController.currentAsset);
+
+    //Coins infomations routes:
+    app.get('/user/coinlist', cryptoInfoController.coinList);
 
 }

@@ -43,9 +43,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'profile',// Now I will get User.getProfile and User.setProfile
     })
-    User.hasOne(models.Profile, {
+    User.hasOne(models.Portfolio, {
       foreignKey: 'userId',
-      as: 'protfolio',
+      as: 'portfolio',
     })
   };
   return User;
