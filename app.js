@@ -2,6 +2,11 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const schedule = require('node-schedule');
+
+var j = schedule.scheduleJob('/1 * * * * *', function(){
+  console.log('The answer to life, the universe, and everything!');
+});
 
 
 // Set up the express app

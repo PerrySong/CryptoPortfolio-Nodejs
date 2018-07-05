@@ -14,7 +14,7 @@ const jwtCheck = (req, res, next) => {
         jwt.verify(token, secret, (err, decoded) => {
             
             if(err) {
-                res.redirect('/');
+                res.status(404).send({error: 'Token expired'})
             } else {
                 User.findOne({where:{id: decoded.id}})
                 .then(user => {

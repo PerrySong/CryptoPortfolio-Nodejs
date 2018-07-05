@@ -11,7 +11,7 @@ const usersController = require('../controllers').users,
 
 module.exports = (app) => {
     app.get('/', (req, res) => res.status(200).send({
-        message: 'Welcome to the UserAuth AP1!'
+        message: 'Welcome to the UserAuth API!'
     }));
 
     //Use middleware
@@ -54,8 +54,13 @@ module.exports = (app) => {
 
     //Portfolio routes
     app.get('/user/asset', portfolioController.currentAsset);
+    app.post('/user/make-transaction', portfolioController.createTransaction);
 
     //Coins infomations routes:
     app.get('/user/coinlist', cryptoInfoController.coinList);
+    app.get('/user/exchange-list', cryptoInfoController.exchangeList);
+    app.post('/user/price', cryptoInfoController.price);
+    app.post('/user/price-multi', cryptoInfoController.priceMulti);
+    app.post('/user/price-historical', cryptoInfoController.priceHistorical);
 
 }
