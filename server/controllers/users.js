@@ -44,7 +44,7 @@ createAdministratorAccountHelper = (req, res) => {
 },
 
 
-createAccount = (req, res) => {
+createAccountHelper = (req, res) => {
         return User
         .create({
             id: uniqid("user-"),
@@ -78,7 +78,7 @@ loginHelper = (user, req, res) => {
 
     if(!user)
         return res.status(404).send({ error: 'Wrong username or email' })
-    else if(user.password === req.body.password) {
+    else if(user.password === md5(req.body.password)) {
         console.log("user = " + user)
         const jwttoken = jwt.sign({ 
                                 id: user.id,
@@ -183,7 +183,7 @@ module.exports = {
                         })
                         return;
                     } else {
-                        createAccount(req, res);   
+                        createAccountHelper(req, res);   
                     }
                 })
                 .catch((err) => res.status(404).send({ error: err }))
