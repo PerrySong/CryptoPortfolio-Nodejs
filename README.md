@@ -68,7 +68,7 @@
 
     *Request*
     `POST /verify/register`  
-    Parameters   | Data Type     | Required / Optional | Description
+    Parameters   | Data Type     | Required / Optional | Description |
     ------------ | ------------- | ------------------- | -----------
     username     | string        | Required            | length 6-30, no space
     email        | string        | Required            | your email 
