@@ -67,7 +67,7 @@
 * # Register with email verification
 
     *Request*
-    `POST /verify/register`
+    `POST /verify/register`  
     Parameters   | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
     username     | string        | Required            | length 6-30, no space
