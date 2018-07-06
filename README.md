@@ -2,46 +2,50 @@
 
 ### Routes
 
-<details>
-  <summary>Authentication</summary>
-  	[Register](#register)  
-	[Register with email verification](#register-with-email-verification)  
-	[Login](#login)
-</details>
+ * Authentication  
+    * [Register](#register)  
+	* [Register with email verification](#register-with-email-verification)  
+	* [Login](#login)
 
-<details>
-  <summary>Setting</summary>
-  	[Public](#public)  
-	[Private](#private)  
-	[Post Setting](#post-setting)  
-	[Get Setting](#get-setting)
-</details>
 
-<details>
-  <summary>Profile</summary>
-  	[Post Profile](#post-profile)  
-	[Get Profile](#get-profile)  
-	[Update Profile](#update-profile)  
-	[Clear Profile](#clear-profile) 
-</details>
+ * Setting  
+  	* [Public](#public)  
+	* [Private](#private)  
+	* [Post Setting](#post-setting)  
+	* [Get Setting](#get-setting)
 
-<details>
-  <summary>Administration</summary>
-  	[Administration](#administration)  
-	[Administration Registration](#administration-register)  
-	[Administrator List Users](#administration-list-users)  
-	[Administrator Send Email to All Users](#administration-send-email-to-all-users)  
-</details>
 
-<details>
-  <summary>Crypto Information</summary>
-  	[List Coins](#list-coins)  
-	[Exchange List](#exchange-list)  
-	[Price](#price)  
-	[Price Multi](#price-multi)  
-    [Price Historical](#price-historical)
-</details>
 
+* Profile  
+  	* [Post Profile](#post-profile)  
+	* [Get Profile](#get-profile)  
+	* [Update Profile](#update-profile)  
+	* [Clear Profile](#clear-profile) 
+
+
+
+ * Administration  
+  	* [Administration](#administration)  
+	* [Administration Registration](#administration-register)  
+	* [Administrator List Users](#administration-list-users)  
+	* [Administrator Send Email to All Users](#administration-send-email-to-all-users)  
+
+
+
+* Crypto Information  
+  	* [List Coins](#list-coins)  
+	* [Exchange List](#exchange-list)  
+	* [Price](#price)  
+	* [Price Multi](#price-multi)  
+    * [Price Historical](#price-historical)
+
+
+
+
+### Logics
+
+[Authorization Logic](#authorization-logic)  
+[Issues](#issues) 
 
 
 ### Logics
