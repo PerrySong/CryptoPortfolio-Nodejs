@@ -13,7 +13,6 @@ const md5 = require('md5');
 //  settingUpdate
 //  profile
 
-// This is a helper metod that create a new administrator user account
 // This is a helper method that create a new portfolio when create new account
 createPortfolio = (user) => {
     console.log("create portfolio")

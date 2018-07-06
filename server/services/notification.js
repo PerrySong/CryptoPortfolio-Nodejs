@@ -60,26 +60,8 @@ sendEmailNotification = (subject, message, firstname, content, emailList) => {
 },
 
 formDailyAlert = (user) => {
-    Portfolio.findOne({where: {userId: user.id}})
-    .then(portfolio => {
-        Coin.findAll({where: {portfolioId: portfolio.id}})
-        .then(coins => {
-            let maxCoin = coins[0];
-            for (let i = 1; i < coins.length; i++) {
-                if (coins[i].amount > maxCoin.amount) {
-                    maxCoin = coins[i];
-                }
-            }
-            if (maxCoin) {
-                let d = new Date(); // Today!
-                d.setDate(d.getDate() - 1); // Yesterday!
-                let info = cryptoCompare.histoDay(maxCoin.type, 'USD', d);
-                let message = `The ${maxCoin.type} high is ${info}`
-            }
-        })
-    })
-    .catch()
-    return "Test now"
+    
+
 }
 
 pushNotification = () => {
@@ -89,8 +71,59 @@ pushNotification = () => {
     .then(users => {
         for(let i = 0; i < users.length; i++) {
             if(users[i].public === true) {
-                const content = formDailyAlert(users[i]);
-                sendEmailNotification(subject, '', users[i].firstname, content, users[i].email);
+
+                Portfolio.findOne({where: {userId: users[i].id}})
+                .then(portfolio => {
+
+                    if(portfolio) {
+                        //If current user has portfolio:
+                        Coin.min('amount') // !!!!not right!!!
+                        .then(max => {
+                            Coin.findOne({where: {'amount': max}})
+                            .then(maxCoin => {
+                                console.log(maxCoin)
+                                let d = new Date(); // Today!
+                                d.setDate(d.getDate() - 1); // Yesterday!
+                                if (maxCoin) {
+                                    cryptoCompare.histoDay(maxCoin.type, 'USD', {timestamp: d})
+                                    .then(info => {
+                                        let message = `The ${maxCoin.type} high: ${info[0].high}, low: ${info[0].low}, close: ${info[0].close}, open: ${info[0].open}`
+                                        return message
+                                    })
+                                    .then(message => {
+                                        console.log("mmmmessage: " + message);
+                                        sendEmailNotification(subject, '', users[i].firstname, message, users[i].email);
+                                    })
+                                    .catch(error => console.log(error))
+                                    
+                                } else {
+                                    cryptoCompare.histoDay('BTC', 'USD', d)
+                                    .then(info => {
+                                        let message = `The BTC high: ${info[0].high}, low: ${info[0].low}, close: ${info[0].close}, open: ${info[0].open}`
+                                        return message
+                                    })
+                                    .then(message => {
+                                        console.log("mmmmessage: " + message);
+                                        sendEmailNotification(subject, '', users[i].firstname, message, users[i].email);
+                                    })
+                                    .catch(error => console.log(error))
+                                } 
+                            })
+                            .catch(error => console.log(error))
+                        })
+        
+                        .catch(error => {
+                            console.log(error);
+                        })
+                    } else {
+                        console.log(`User ${users[i].id} do not has portfolio`)
+                    }
+                    
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+
             }
         }
     })

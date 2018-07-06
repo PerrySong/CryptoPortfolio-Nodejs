@@ -5,9 +5,9 @@ const cors = require('cors');
 const schedule = require('node-schedule');
 const notification = require('./server/services/notification');
 
-var j = schedule.scheduleJob('/1 * * * * *', function(){
+var j = schedule.scheduleJob('0 0 8 * * *', function(){
   console.log("sent email")
-  // notification.pushNotification();
+  notification.pushNotification();
 });
 
 console.log(Date.now())

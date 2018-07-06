@@ -12,8 +12,9 @@ updateWallet = (portfolio, type, amount) => {
         })
         .then(curCoin => {
             if (curCoin){
+                let newAmount = Number(curCoin.amount) + Number(amount)
                 curCoin.update({
-                    amount: curCoin.amount + amount
+                    amount: newAmount
                 })
                 .catch((err) => res.status(400).send({error: err}));
             } else {
@@ -65,7 +66,7 @@ module.exports = {
                         console.log("newTransaction")
                         res.status(200).send(newTransaction)
                     })
-                    .catch(err => res.status(400).send(err));
+                    .catch(err => res.status(400).send({error: err}));
                 } else {
                     res.status(403).send({message: 'No portfolio'});
                 }

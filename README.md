@@ -1,21 +1,51 @@
 # API Documentation
 
+### Routes
 
-[Register](#register)  
-[Register with email verification](#register-with-email-verification)  
-[Login](#login)  
-[Public](#public)  
-[Private](#private)  
-[Post Setting](#post-setting)  
-[Get Setting](#get-setting)  
-[Post Profile](#post-profile)  
-[Get Profile](#get-profile)  
-[Update Profile](#update-profile)  
-[Clear Profile](#clear-profile)  
-[Administration](#administration)  
-[Administration Registration](#administration-register)  
-[Administrator List Users](#administration-list-users)  
-[Administrator Send Email to All Users](#administration-send-email-to-all-users)  
+<details>
+  <summary>Authentication</summary>
+  	[Register](#register)  
+	[Register with email verification](#register-with-email-verification)  
+	[Login](#login)
+</details>
+
+<details>
+  <summary>Setting</summary>
+  	[Public](#public)  
+	[Private](#private)  
+	[Post Setting](#post-setting)  
+	[Get Setting](#get-setting)
+</details>
+
+<details>
+  <summary>Profile</summary>
+  	[Post Profile](#post-profile)  
+	[Get Profile](#get-profile)  
+	[Update Profile](#update-profile)  
+	[Clear Profile](#clear-profile) 
+</details>
+
+<details>
+  <summary>Administration</summary>
+  	[Administration](#administration)  
+	[Administration Registration](#administration-register)  
+	[Administrator List Users](#administration-list-users)  
+	[Administrator Send Email to All Users](#administration-send-email-to-all-users)  
+</details>
+
+<details>
+  <summary>Crypto Information</summary>
+  	[List Coins](#list-coins)  
+	[Exchange List](#exchange-list)  
+	[Price](#price)  
+	[Price Multi](#price-multi)  
+    [Price Historical](#price-historical)
+</details>
+
+
+
+### Logics
+
 [Authorization Logic](#authorization-logic)  
 [Issues](#issues) 
 
@@ -471,7 +501,9 @@
     }
 ```
 
-* # Administrator Send Email to All Users:
+---
+
+* * # Administrator Send Email to All Users:
     *Request*
         `POST /administrator/sendall`
         
@@ -489,6 +521,318 @@
 
 ---
 
+* # Make Transaction:
+
+    Make a transaction
+
+    *Request*
+        `POST /user/make-transaction`
+        
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+
+   Parameters   | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+    sell_type 	|	string		| 	required		  | Selling coin's type
+    sell_price	|	double      | 	required	      | Coin's value in USD
+    sell_amount |  double 		|	required   		  | Selling coins amount
+    income_type |  string		|	required		  | Income type (USD for example)
+    income_price|  double		|	required		  | Currency's value in USD
+    income_amount| double		|	required		  | Income amount
+    
+     *Response*
+
+```json 
+    [
+        {	
+        	"id": "transaction id",
+            "sell_type": "BTC",
+            "sell_price": "6000",
+            "sell_amount": "2",
+            "income_type": "USD",
+            "income_price": "1",
+            "income_amount": "12000",
+            "createAt": "some date",
+            "upedateAt": "soome date",
+            "portfolioId": "The associate portfolio id",
+        }
+        
+    ]
+```
+
+```json 
+    {
+        "error": "error messages"
+    }
+```
+---
+
+* # Asset
+	
+    Check user's current assets (All the currency type and amount the user recently hold) 
+
+    *Request*
+        `GET /user/asset`	
+        
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+        
+     *Response*
+
+```json 
+    [
+        {	
+        	"id": "transaction id",
+            "type": "BTC",
+            "amount": "2",
+            "createAt": "some date",
+            "upedateAt": "soome date",
+            "portfolioId": "The associate portfolio id",
+        },
+        {
+            
+        }, ...
+        
+    ]
+```  
+
+```json 
+    {
+        "error": "error messages"
+    }
+```
+---
+
+* # List Coins:
+
+    Get the current list of all cryptocurrencies and the following information about each coin.
+
+    *Request*
+        `GET /user/coinlist`
+        
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+    
+     *Response*
+
+```json 
+      {
+        BTC: {
+               Id: "1182",
+               Url: "/coins/btc/overview",
+               ImageUrl: "/media/19633/btc.png",
+               Name: "BTC",
+               Symbol: "BTC",
+               CoinName: "Bitcoin",
+               FullName: "Bitcoin (BTC)",
+               Algorithm: "SHA256",
+               ProofType: "PoW",
+               FullyPremined: "0",
+               TotalCoinSupply: "21000000",
+               PreMinedValue: "N/A",
+               TotalCoinsFreeFloat: "N/A",
+               SortOrder: "1",
+               Sponsored: false
+      		},
+        ETH: {...},
+    }
+```  
+```json 
+    {
+        "error": "error messages"
+    }
+```    
+---
+
+* # Exchange List:
+
+Returns all the exchanges that CryptoCompare has integrated with.
+
+*Request*
+        `GET /user/exchange-list`
+        
+   header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+    
+   *Response*
+   
+```json 
+      {
+        "Cryptsy":
+                  {
+                    "42":["BTC","XRP"],
+                    "EMC2":["BTC","XRP"],
+                    "POINTS":["BTC"],
+                    "VTC":["BTC","LTC","XRP"]
+                    ...
+                  }
+                  ...
+	  }
+```  
+
+```json 
+    {
+        "error": "error messages"
+    }
+```
+---
+
+* # Price
+
+Get the current price of any cryptocurrency in any other currency.
+
+*Request*
+        `POST /user/price`
+        
+   header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+    
+   Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+   fsym         | string | required |  From symbal
+   tsyms 		| array of strings | required | To Symbol(s)
+   
+    
+   *Response*
+   
+```json    
+   { 
+   		USD: 1100.24,	
+       	BTC: 0.16
+   }
+```
+
+```json 
+    {
+        "error": "error messages"
+    }
+```
+---
+
+* # Price Multi
+
+
+Works like price, except it allows you to specify a matrix of From Symbols.
+
+*Request*
+        `POST /user/price-multi`
+        
+   header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+    
+   Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+   fsym         | array of strings | required |  From symbal
+   tsyms 		| array of strings | required | To Symbol(s)
+   
+    
+   *Response*
+   
+```json    
+   { 
+   		BTC {USD: 6213.54},	
+       	...
+   }
+```
+
+```json 
+    {
+        "error": "error messages"
+    }
+```
+
+---
+
+* # Price Historical
+
+Get all the current trading info (price, vol, open, high, low, etc.) of any list of cryptocurrencies in any other currency.
+
+*Request*
+        `POST /user/price-historical`
+
+
+ header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+    
+   Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+   fsym         | array of strings | required |  From symbal
+   tsyms 		| array of strings | required | To Symbol(s)
+   
+   
+   *Response*
+
+
+```json
+
+{
+    BTC: {
+      USD: {
+        TYPE: '5',
+        MARKET: 'CCCAGG',
+        FROMSYMBOL: 'BTC',
+        TOSYMBOL: 'USD',
+        FLAGS: '4',
+        PRICE: 1152.42,
+        LASTUPDATE: 1487865689,
+        LASTVOLUME: 0.21,
+        LASTVOLUMETO: 242.20349999999996,
+        LASTTRADEID: 1224703,
+        VOLUME24HOUR: 53435.45299122338,
+        VOLUME24HOURTO: 60671593.843186244,
+        OPEN24HOUR: 1119.31,
+        HIGH24HOUR: 1170,
+        LOW24HOUR: 1086.641,
+        LASTMARKET: 'itBit',
+        CHANGE24HOUR: 33.11000000000013,
+        CHANGEPCT24HOUR: 2.958072383879366,
+        SUPPLY: 16177825,
+        MKTCAP: 18643649086.5
+       },
+       EUR: ...
+     },
+    ETH: ...
+ }
+
+```
+
+*Request*
+        `POST /user/price-multi`
+        
+   header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+    
+   Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+   fsym         | array of strings | required |  From symbal
+   tsyms 		| array of strings | required | To Symbol(s)
+   
+    
+   *Response*
+   
+```json    
+   { 
+   		BTC {USD: 6213.54},	
+       	...
+   }
+```
+
+```json 
+    {
+        "error": "error messages"
+    }
+```
+
+---
 * # Authorization Logic:
 
     * Every route start with baseURL/user/ will check the token sent by client, and 
@@ -498,4 +842,4 @@
 ---
 
 * # Issues:
-   * `We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.`      
+   * We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.     

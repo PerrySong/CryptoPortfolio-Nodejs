@@ -20,11 +20,9 @@ module.exports = {
             //                             return user.email});
             // emailNotification.sendEmail(req, res, subject, message, html, emailList);
             let arrLength = users.length;
-            for(let i = 0; i < arrLength; i++) {
+            for (let i = 0; i < arrLength; i++) {
                 emailNotification.sendEmail(req, res, subject, message, html, users[i].email);
             }
         })
-
-       
     }
 }
