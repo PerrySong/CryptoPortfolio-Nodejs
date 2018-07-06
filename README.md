@@ -48,12 +48,6 @@
 [Issues](#issues) 
 
 
-### Logics
-
-[Authorization Logic](#authorization-logic)  
-[Issues](#issues) 
-
-
 
 
 
@@ -598,7 +592,7 @@
         },
         {
             
-        }, ...
+        }, 
         
     ]
 ```  
@@ -625,24 +619,24 @@
 
 ```json 
       {
-        BTC: {
-               Id: "1182",
-               Url: "/coins/btc/overview",
-               ImageUrl: "/media/19633/btc.png",
-               Name: "BTC",
-               Symbol: "BTC",
-               CoinName: "Bitcoin",
-               FullName: "Bitcoin (BTC)",
-               Algorithm: "SHA256",
-               ProofType: "PoW",
-               FullyPremined: "0",
-               TotalCoinSupply: "21000000",
-               PreMinedValue: "N/A",
-               TotalCoinsFreeFloat: "N/A",
-               SortOrder: "1",
-               Sponsored: false
+        "BTC": {
+               "Id": "1182",
+               "Url": "/coins/btc/overview",
+               "ImageUrl": "/media/19633/btc.png",
+               "Name": "BTC",
+               "Symbol": "BTC",
+               "CoinName": "Bitcoin",
+               "FullName": "Bitcoin (BTC)",
+               "Algorithm": "SHA256",
+               "ProofType": "PoW",
+               "FullyPremined": "0",
+               "TotalCoinSupply": "21000000",
+               "PreMinedValue": "N/A",
+               "TotalCoinsFreeFloat": "N/A",
+               "SortOrder": "1",
+               "Sponsored": false
       		},
-        ETH: {...},
+        "ETH": {},
     }
 ```  
 ```json 
@@ -673,9 +667,9 @@ Returns all the exchanges that CryptoCompare has integrated with.
                     "EMC2":["BTC","XRP"],
                     "POINTS":["BTC"],
                     "VTC":["BTC","LTC","XRP"]
-                    ...
+                    
                   }
-                  ...
+                  
 	  }
 ```  
 
@@ -707,8 +701,8 @@ Get the current price of any cryptocurrency in any other currency.
    
 ```json    
    { 
-   		USD: 1100.24,	
-       	BTC: 0.16
+   		"USD": 1100.24,	
+       	"BTC": 0.16
    }
 ```
 
@@ -741,8 +735,7 @@ Works like price, except it allows you to specify a matrix of From Symbols.
    
 ```json    
    { 
-   		BTC {USD: 6213.54},	
-       	...
+   		"BTC": {"USD": 6213.54}
    }
 ```
 
@@ -778,32 +771,32 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
 ```json
 
 {
-    BTC: {
-      USD: {
-        TYPE: '5',
-        MARKET: 'CCCAGG',
-        FROMSYMBOL: 'BTC',
-        TOSYMBOL: 'USD',
-        FLAGS: '4',
-        PRICE: 1152.42,
-        LASTUPDATE: 1487865689,
-        LASTVOLUME: 0.21,
-        LASTVOLUMETO: 242.20349999999996,
-        LASTTRADEID: 1224703,
-        VOLUME24HOUR: 53435.45299122338,
-        VOLUME24HOURTO: 60671593.843186244,
-        OPEN24HOUR: 1119.31,
-        HIGH24HOUR: 1170,
-        LOW24HOUR: 1086.641,
-        LASTMARKET: 'itBit',
-        CHANGE24HOUR: 33.11000000000013,
-        CHANGEPCT24HOUR: 2.958072383879366,
-        SUPPLY: 16177825,
-        MKTCAP: 18643649086.5
+    "BTC": {
+      "USD": {
+        "TYPE": "5",
+        "MARKET": "CCCAGG",
+        "FROMSYMBOL": "BTC",
+        "TOSYMBOL": "USD",
+        "FLAGS": "4",
+        "PRICE": 1152.42,
+        "LASTUPDATE": 1487865689,
+        "LASTVOLUME": 0.21,
+        "LASTVOLUMETO": 242.20349999999996,
+        "LASTTRADEID": 1224703,
+        "VOLUME24HOUR": 53435.45299122338,
+        "VOLUME24HOURTO": 60671593.843186244,
+        "OPEN24HOUR": 1119.31,
+        "HIGH24HOUR": 1170,
+        "LOW24HOUR": 1086.641,
+        "LASTMARKET": "itBit",
+        "CHANGE24HOUR": 33.11000000000013,
+        "CHANGEPCT24HOUR": 2.958072383879366,
+        "SUPPLY": 16177825,
+        "MKTCAP": 18643649086.5
        },
-       EUR: ...
+       "EUR": "..."
      },
-    ETH: ...
+    "ETH": "..."
  }
 
 ```
@@ -825,8 +818,7 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
    
 ```json    
    { 
-   		BTC {USD: 6213.54},	
-       	...
+   		"BTC": { "USD": 6213.54},	
    }
 ```
 
