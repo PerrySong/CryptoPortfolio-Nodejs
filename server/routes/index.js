@@ -1,4 +1,4 @@
-const usersController = require('../controllers').users,
+const usersController = require('../controllers').user,
       jwtCheck = require('../middleware/authorization').jwtCheck,
       isAdmin = require('../middleware/authorization').isAdmin,
       profileController = require('../controllers').profile,

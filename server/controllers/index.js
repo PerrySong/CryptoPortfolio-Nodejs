@@ -1,11 +1,11 @@
-const users = require('./users');
+const user = require('./user');
 const profile = require('./profile');
 const portfolio = require('./portfolio');
 const administrator = require('./administrator');
 const cryptoInfo = require('./cryptoInfo');
 
 module.exports = {
-    users,
+    user,
     profile,
     portfolio,
     administrator,

@@ -5,7 +5,7 @@ module.exports = {
   createOrUpdateProfile(req,res){
     console.log("create or update profile");
     const user = req.currentUser;
-    if(user) {
+    if (user) {
         console.log("user = ")
         console.log(user)
       Profile.findOne({
@@ -15,7 +15,7 @@ module.exports = {
       })
       .then(curProfile => {
           console.log(typeof(req.body.email));
-        if(curProfile){
+        if (curProfile){
           curProfile.update({
             email: req.body.email || curProfile.email,
             github: req.body.github || curProfile.github,
@@ -47,7 +47,7 @@ module.exports = {
   createProfile(req, res) {
     console.log("create profile");
     const user = req.currentUser;
-    if(user) {
+    if (user) {
       Profile.findOne({
         where: {
           userId: user.id
@@ -74,14 +74,14 @@ module.exports = {
   getProfile(req, res) {
     console.log("get profile");
     const user = req.currentUser;
-    if(user) {
+    if (user) {
       Profile.findOne({
         where: {
           userId: user.id
         }
       })
       .then(curProfile => {
-        if(curProfile)
+        if (curProfile)
           res.status(200).send(curProfile)
         else
           res.status(404).send({
@@ -97,14 +97,14 @@ module.exports = {
   updateProfile(req, res) {
     console.log("update profile");
     const user = req.currentUser;
-    if(user) {
+    if (user) {
       Profile.findOne({
         where: {
           userId: user.id
         }
       })
       .then(curProfile => {
-        if(curProfile) {
+        if (curProfile) {
           curProfile.update({
             email: req.body.email || curProfile.email,
             github: req.body.github || curProfile.github,
@@ -131,7 +131,7 @@ module.exports = {
   clearProfile(req, res) {
     console.log("clear profile");
     const user = req.currentUser;
-    if(user) {
+    if (user) {
       Profile.findOne({
         where: {
           userId: user.id
@@ -158,7 +158,7 @@ module.exports = {
   destroyProfile(req, res){
     console.log("destroy profile");
     const user = req.currentUser;
-    if(user) {
+    if (user) {
       Profile.findOne({
         where: {
           userId: user.id

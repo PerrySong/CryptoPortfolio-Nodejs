@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 const uniqid = require('uniqid');
 const emailVerification = require('../helpers/emailVerification');
+const Portfolio = require('../models').Portfolio;
 const md5 = require('md5');
 //  create
 //  login
@@ -13,6 +14,21 @@ const md5 = require('md5');
 //  profile
 
 // This is a helper metod that create a new administrator user account
+// This is a helper method that create a new portfolio when create new account
+createPortfolio = (user) => {
+    console.log("create portfolio")
+    return Portfolio
+    .create({userId: user.id})
+    .then(portfolio => {
+        console.log("here")
+        console.log(portfolio)
+    })
+    .catch((err) => {
+        console.log("yoyyoyoyoy")
+        res.status(400).send({error: err})
+        
+    });
+}
 
 createAdministratorAccountHelper = (req, res) => {
     return User
@@ -27,6 +43,7 @@ createAdministratorAccountHelper = (req, res) => {
         administrator: true
     })
     .then(user => {
+        createPortfolio(user)
         const jwttoken = jwt.sign({ 
                 id: user.id,
                 email: req.body.email,
@@ -43,7 +60,6 @@ createAdministratorAccountHelper = (req, res) => {
     .catch(err => res.status(400).send(err));    
 },
 
-
 createAccountHelper = (req, res) => {
         return User
         .create({
@@ -57,7 +73,8 @@ createAccountHelper = (req, res) => {
             administrator: false
         })
         .then(user => {
-
+            createPortfolio(user)
+            console.log("heheh")
             const jwttoken = jwt.sign({ 
                     id: user.id,
                     email: req.body.email,
@@ -65,20 +82,24 @@ createAccountHelper = (req, res) => {
                     password: md5(req.body.password),
                     administrator: false
                 }, secret, { expiresIn: '24h' });
+
+            console.log("heheh " + user.id)
             res.status(201).send({
                 user: user,
                 jwttoken: jwttoken
             })
         })
-        .catch(err => res.status(400).send(err));    
+        .catch(err => res.status(402).send({
+            error: err
+        }));    
 },
 
 
 loginHelper = (user, req, res) => {
 
-    if(!user)
+    if (!user)
         return res.status(404).send({ error: 'Wrong username or email' })
-    else if(user.password === md5(req.body.password)) {
+    else if (user.password === md5(req.body.password)) {
         console.log("user = " + user)
         const jwttoken = jwt.sign({ 
                                 id: user.id,
@@ -104,7 +125,7 @@ module.exports = {
 
         User.findOne({ where:{ email: req.body.email }})
         .then(user => {
-            if(user) {
+            if (user) {
                 res.status(400).send({
                     error: "Email address is used"
                 })
@@ -112,7 +133,7 @@ module.exports = {
             } else {
                 User.findOne({ where:{ username: req.body.username }})
                 .then(user => {
-                    if(user) {
+                    if (user) {
                         res.status(400).send({
                             error: "Username is used"
                         })
@@ -133,7 +154,7 @@ module.exports = {
         
         token = req.params.jwttoken;
         jwt.verify(token, secret, (err, decoded) => {
-            if(err) {
+            if (err) {
                 res.status(400).send({
                     error: 'Fail to verify email'
                 });
@@ -169,7 +190,7 @@ module.exports = {
     createAccount(req, res) {
         User.findOne({ where:{ email: req.body.email }})
         .then(user => {
-            if(user) {
+            if (user) {
                 res.status(400).send({
                     error: "Email address is used"
                 })
@@ -177,7 +198,7 @@ module.exports = {
             } else {
                 User.findOne({ where:{ username: req.body.username }})
                 .then(user => {
-                    if(user) {
+                    if (user) {
                         res.status(400).send({
                             error: "Username is used"
                         })
@@ -195,7 +216,7 @@ module.exports = {
     createAdministratorAccount(req, res) {
         User.findOne({ where:{ email: req.body.email }})
         .then(user => {
-            if(user) {
+            if (user) {
                 res.status(400).send({
                     error: "Email address is used"
                 })
@@ -203,7 +224,7 @@ module.exports = {
             } else {
                 User.findOne({ where:{ username: req.body.username }})
                 .then(user => {
-                    if(user) {
+                    if (user) {
                         res.status(400).send({
                             error: "Username is used"
                         })
@@ -217,13 +238,13 @@ module.exports = {
     },  
 
     login(req, res) {
-        if(req.body.email) {
+        if (req.body.email) {
             console.log("user = " + req.body.email)
             User.findOne({where:{email: req.body.email}})
             .then((user) => loginHelper(user, req, res))
             .catch(err => res.status(200).send(err)); 
 
-        } else if(req.body.username) {
+        } else if (req.body.username) {
             console.log("user = " + req.body.username)
             User.findOne({where:{username: req.body.username}})
             .then((user) => loginHelper(user, req, res))
@@ -236,10 +257,10 @@ module.exports = {
     public(req, res) {
 
         const user = req.currentUser;
-        if(user) {
+        if (user) {
             User.findOne({where:{id: user.id}})
             .then(curUser => {
-                if(!curUser) {
+                if (!curUser) {
                     return res.status(404).send({
                         error: "user not found" 
                     })
@@ -261,7 +282,7 @@ module.exports = {
 
     private(req, res) {
         const user = req.currentUser;
-        if(user) {
+        if (user) {
             User.findOne({where:{id: user.id}})
             .then(curUser => {
                 if(!curUser) {
@@ -286,7 +307,7 @@ module.exports = {
 
     getSetting(req, res) {
         const user = req.currentUser;
-        if(user) {
+        if (user) {
             res.status(200).send(user);
         } else {
             res.status(403).send({message: 'Please log in'});
@@ -296,13 +317,13 @@ module.exports = {
     updateSetting(req, res) {
         const user = req.currentUser;
 
-        if(user) {
+        if (user) {
             return User 
             .findById(user.id)
             .then(curUser => {
-                if(curUser) {
+                if (curUser) {
                     let newPassword;
-                    if(req.body.password) {
+                    if (req.body.password) {
                         newPassword = md5(req.body.password);
                     } 
                     curUser.update({
@@ -332,28 +353,4 @@ module.exports = {
                 console.log("error = " + error)
             });
     },
-
-    // test(req, res) {
-        
-    //     const jwttoken = jwt.sign({ id: req.body.id}, secret, { expiresIn: '24h' });
-                
-    //             jwt.verify(jwttoken, secret, (err, decoded) => {
-            
-    //                 if(err) {
-    //                     res.status(401).json({err: 'Fail to authenticate'});
-    //                 } else {
-    //                     User.findOne({
-    //                         where: {id: decoded.id}
-    //                     })
-    //                     .then(user => {
-    //                         if(!user) {
-    //                             res.status(404).json({ error: 'Fail to authenticate '});
-    //                         } else {
-    //                             req.currentUser = user;
-    //                             next();
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    // }
 }

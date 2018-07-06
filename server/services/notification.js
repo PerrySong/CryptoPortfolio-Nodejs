@@ -1,9 +1,12 @@
 const nodemailer = require('nodemailer');
-const schedule = require('node-schedule');
 const hmtlTemplate = require('../views/emailHtmlTemplate');
+const User = require('../models').User
+const Portfolio = require('../models').Portfolio
+const Coin = require('../models').Coin
+const cryptoCompare = require('./cryptoCompare')
+
 //This method will send a link to the user's email, ask the user to activate his/her account
 sendEmail = (req, res, subject, message, html, emailList) => {
-       
 
     let mailOptions = {
         from: '"Crypto Team" <cryptotrackerservices@gmail.com>', // sender address
@@ -29,9 +32,10 @@ sendEmail = (req, res, subject, message, html, emailList) => {
     
 },
 
-sendEmailNotification = (subject, message, user, content, emailList) => {
+sendEmailNotification = (subject, message, firstname, content, emailList) => {
     
-    let html = hmtlTemplate.formNotificationHtml(user, content);
+    let html = hmtlTemplate.formNotificationHtml(firstname, content);
+    console.log(html);
 
     let mailOptions = {
         from: '"Crypto Team" <cryptotrackerservices@gmail.com>', // sender address
@@ -55,8 +59,45 @@ sendEmailNotification = (subject, message, user, content, emailList) => {
     
 },
 
+formDailyAlert = (user) => {
+    Portfolio.findOne({where: {userId: user.id}})
+    .then(portfolio => {
+        Coin.findAll({where: {portfolioId: portfolio.id}})
+        .then(coins => {
+            let maxCoin = coins[0];
+            for (let i = 1; i < coins.length; i++) {
+                if (coins[i].amount > maxCoin.amount) {
+                    maxCoin = coins[i];
+                }
+            }
+            if (maxCoin) {
+                let d = new Date(); // Today!
+                d.setDate(d.getDate() - 1); // Yesterday!
+                let info = cryptoCompare.histoDay(maxCoin.type, 'USD', d);
+                let message = `The ${maxCoin.type} high is ${info}`
+            }
+        })
+    })
+    .catch()
+    return "Test now"
+}
+
+pushNotification = () => {
+    const subject = 'Crypto Currency Flutuate'
+    
+    User.findAll({})
+    .then(users => {
+        for(let i = 0; i < users.length; i++) {
+            if(users[i].public === true) {
+                const content = formDailyAlert(users[i]);
+                sendEmailNotification(subject, '', users[i].firstname, content, users[i].email);
+            }
+        }
+    })
+}
 
 
 module.exports = {
     sendEmail,
+    pushNotification
 }

@@ -3,11 +3,14 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const schedule = require('node-schedule');
+const notification = require('./server/services/notification');
 
 var j = schedule.scheduleJob('/1 * * * * *', function(){
-  console.log('The answer to life, the universe, and everything!');
+  console.log("sent email")
+  // notification.pushNotification();
 });
 
+console.log(Date.now())
 
 // Set up the express app
 const app = express();

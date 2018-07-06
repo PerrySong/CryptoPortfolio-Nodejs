@@ -3,15 +3,15 @@ const Coin = require('../models').Coin;
 const Transaction = ('../model').Transaction;
 
 updateWallet = (portfolio, type, amount) => {
-    if(portfolio){
+    if (portfolio){
         Coin.findOne({
             where: {
-              portfolioId: curPortfolio.id,
+              portfolioId: portfolio.id,
               type: type
             }
         })
         .then(curCoin => {
-            if(curCoin){
+            if (curCoin){
                 curCoin.update({
                     amount: curCoin.amount + amount
                 })
@@ -36,7 +36,7 @@ module.exports = {
     createTransaction(req, res) {
         console.log("create transaction");
         const user = req.currentUser;
-        if(user) {
+        if (user) {
             console.log("user = ")
             console.log(user)
             Portfolio.findOne({
@@ -71,10 +71,10 @@ module.exports = {
             res.status(403).send({message: 'Please log in'});
         }
     },
-    
+
     currentAsset(req, res) {
         const user = req.currentUser;
-        if(user) {
+        if (user) {
             // console.log(Portfolio.findOrCreate);
             console.log('hey')
             Portfolio.findOrCreate({where: {userId: user.id}, defaults: {id: ''}})
