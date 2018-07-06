@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         sell_type: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         }, 
         sell_price: {
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         }, 
         income_type: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         income_price: {

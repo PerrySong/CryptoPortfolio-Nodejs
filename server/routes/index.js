@@ -63,4 +63,6 @@ module.exports = (app) => {
     app.post('/user/price-multi', cryptoInfoController.priceMulti);
     app.post('/user/price-historical', cryptoInfoController.priceHistorical);
 
+    app.get('/listp', portfolioController.listPortfolio)
+
 }

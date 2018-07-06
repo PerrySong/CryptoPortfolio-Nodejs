@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       sell_type: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: false,
       }, 
       sell_price: {
@@ -22,7 +22,7 @@ module.exports = {
           allowNull: false,
       }, 
       income_type: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: false,
       },
       income_price: {

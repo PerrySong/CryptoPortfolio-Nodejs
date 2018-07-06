@@ -1,6 +1,6 @@
 const Portfolio = require('../models').Portfolio;
 const Coin = require('../models').Coin;
-const Transaction = ('../model').Transaction;
+const Transaction = require('../models').Transaction;
 
 updateWallet = (portfolio, type, amount) => {
     if (portfolio){
@@ -20,7 +20,8 @@ updateWallet = (portfolio, type, amount) => {
                 return Coin
                 .create({
                     type: type,
-                    amount: amount
+                    amount: amount,
+                    portfolioId: portfolio.id
                 })
                 .catch((err) => res.status(400).send({error: err}));
             }
@@ -38,7 +39,7 @@ module.exports = {
         const user = req.currentUser;
         if (user) {
             console.log("user = ")
-            console.log(user)
+            
             Portfolio.findOne({
                 where: {
                     userId: user.id
@@ -46,6 +47,7 @@ module.exports = {
             })
             .then(curPortfolio => {
                 if (curPortfolio){
+
                     return Transaction
                     .create({
                         // need to coop makeTransaction method in Portfolio controller
@@ -54,11 +56,13 @@ module.exports = {
                         sell_amount: req.body.sell_amount,
                         income_type: req.body.income_type,
                         income_price: req.body.income_price,
-                        income_amount: req.body.income_amount
+                        income_amount: req.body.income_amount,
+                        portfolioId: curPortfolio.id
                     })
                     .then(newTransaction => {
                         updateWallet(curPortfolio, req.body.sell_type, -req.body.sell_amount),
                         updateWallet(curPortfolio, req.body.income_type, req.body.income_amount),
+                        console.log("newTransaction")
                         res.status(200).send(newTransaction)
                     })
                     .catch(err => res.status(400).send(err));
@@ -76,10 +80,11 @@ module.exports = {
         const user = req.currentUser;
         if (user) {
             // console.log(Portfolio.findOrCreate);
-            console.log('hey')
-            Portfolio.findOrCreate({where: {userId: user.id}, defaults: {id: ''}})
+            
+            Portfolio.findOne({where: {userId: user.id}})
+
             .then(portfolio => {
-                
+
                 return Coin.findAll({where: {portfolioId: portfolio.id}})
                 .then(coins => res.status(200).send(coins))
                 .catch(err => res.status(400).send({
@@ -94,5 +99,18 @@ module.exports = {
                 error: 'Please login'
             })
         }
-    }
+    },
+
+    listPortfolio(req, res) {
+            console.log("hey")
+            return Coin
+                .findAll({
+    
+                })
+                .then((ps) => res.status(200).send(ps))
+                .catch((error) =>   {
+                    res.status(400).send(error)
+                    console.log("error = " + error)
+                });
+        },
 }
