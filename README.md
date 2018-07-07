@@ -829,13 +829,19 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
 ```
 
 ---
-* # Authorization Logic:
+* # Authorization
 
-    * Every route start with baseURL/user/ will check the token sent by client, and 
-      server will recognize the token and know which user you are. If you update your
-      email or username or password, the token will expire.
+    * Every route start with baseURL/user/ will check the token sent by a client, and the server will recognize the token and know which user you are. If you update your email, username or password, the token will expire.
+
+    * Our backend will send a confirmation link when user registers his/her account. The link contains an encrypted parameter which includes user registration information. When the user clicks the link backend verify and decode the parameter    using a private key to acquire the user's registration information then create an    account accordingly.
+ 
+
+---
+* # Notification  
+    * Administrators can manually send notifications to every user's email. Whereas
+    at every day 8 am users will receive an email containing the latest news about the coin they hold the most. 
 
 ---
 
 * # Issues:
-   * We are currently using gmail for sending email, which could cause problems when it comes to sending bulk emails.     
+   * We are currently using Gmail for sending email, which could cause problems when it comes to sending bulk emails.   
