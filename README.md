@@ -75,10 +75,10 @@
             "password": "your password",
             "firstname": "your first name",
             "lastname": "your last name",
-            "public": "ture/false",
+            "public": "true/false",
             "administrator": "true/false",
             "createAt": "some date",
-            "upedateAt": "soome date"
+            "upedateAt": "some date"
         },
         "token": "xxx"
     }
@@ -141,10 +141,10 @@
             "password": "your password",
             "firstname": "your first name",
             "lastname": "your last name",
-            "public": "ture/false",
+            "public": "true/false",
             "administrator": "true/false",
             "createAt": "some date",
-            "upedateAt": "soome date"
+            "upedateAt": "some date"
         },
         "token": "xxx"
     }
@@ -232,10 +232,10 @@
         "password": "your password",
         "firstname": "your first name",
         "lastname": "your last name",
-        "public": "ture/false",
+        "public": "true/false",
         "administrator": "true/false",
         "createAt": "some date",
-        "upedateAt": "soome date"
+        "upedateAt": "some date"
     }
 ```
 
@@ -267,10 +267,10 @@
         "password": "your password",
         "firstname": "your first name",
         "lastname": "your last name",
-        "public": "ture/false",
+        "public": "true/false",
         "administrator": "true/false",
         "createAt": "some date",
-        "upedateAt": "soome date"
+        "upedateAt": "some date"
     }
 ```
 ```json
@@ -307,7 +307,7 @@
         "interest": "your interest areas",
         "investment": "req.body.investment",
         "createAt": "some date",
-        "upedateAt": "soome date"
+        "upedateAt": "some date"
     }
 ```
 ```json
@@ -337,7 +337,7 @@
         "interest": "your interest areas",
         "investment": "req.body.investment",
         "createAt": "some date",
-        "upedateAt": "soome date"
+        "upedateAt": "some date"
     }
 ```
 
@@ -375,7 +375,7 @@
         "interest": "your interest areas",
         "investment": "req.body.investment",
         "createAt": "some date",
-        "upedateAt": "soome date"
+        "upedateAt": "some date"
     }
 ```
 ```json
@@ -405,7 +405,7 @@
         "interest": "",
         "investment": "",
         "createAt": "some date",
-        "upedateAt": "soome date"
+        "upedateAt": "some date"
     }
 ```
 ```json
@@ -444,10 +444,10 @@
             "password": "your password",
             "firstname": "your first name",
             "lastname": "your last name",
-            "public": "ture/false",
+            "public": "true/false",
             "administrator": "true",
             "createAt": "some date",
-            "upedateAt": "soome date"
+            "upedateAt": "some date"
         },
         
         "token": "xxx"
@@ -481,10 +481,10 @@
             "password": "your password",
             "firstname": "your first name",
             "lastname": "your last name",
-            "public": "ture/false",
+            "public": "true/false",
             "administrator": "true",
             "createAt": "some date",
-            "upedateAt": "soome date"
+            "upedateAt": "some date"
         },
         {
             
@@ -553,7 +553,7 @@
             "income_price": "1",
             "income_amount": "12000",
             "createAt": "some date",
-            "upedateAt": "soome date",
+            "upedateAt": "some date",
             "portfolioId": "The associate portfolio id",
         }
         
@@ -587,7 +587,7 @@
             "type": "BTC",
             "amount": "2",
             "createAt": "some date",
-            "upedateAt": "soome date",
+            "upedateAt": "some date",
             "portfolioId": "The associate portfolio id",
         },
         {
