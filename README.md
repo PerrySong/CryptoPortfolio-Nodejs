@@ -801,32 +801,6 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
 
 ```
 
-*Request*
-        `POST /user/price-multi`
-        
-   header       | Data Type     | Required / Optional | Description
-   ------------ | ------------- | ------------------- | -----------
-   authorization| jwt token     | required            | Your jwt token
-    
-   Parameters   | Data Type     | Required / Optional | Description
-   -------------|---------------|---------------------|-------------
-   fsym         | array of strings | required |  From symbal
-   tsyms 		| array of strings | required | To Symbol(s)
-   
-    
-   *Response*
-   
-```json    
-   { 
-   		"BTC": { "USD": 6213.54},	
-   }
-```
-
-```json 
-    {
-        "error": "error messages"
-    }
-```
 
 ---
 * # Authorization
