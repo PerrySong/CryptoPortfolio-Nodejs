@@ -819,3 +819,5 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
 
 * # Issues:
    * We are currently using Gmail for sending email, which could cause problems when it comes to sending bulk emails.   
+
+   * When sending notifications, server traverses the every user. And traverse every coin the user has. The time complexity will be O(n * m), which should be improved.
