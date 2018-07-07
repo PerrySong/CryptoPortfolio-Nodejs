@@ -763,7 +763,7 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
    -------------|---------------|---------------------|-------------
    fsym         | array of strings | required |  From symbal
    tsyms 		| array of strings | required | To Symbol(s)
-   
+   time (Date)  | date             | required | Date in history that you want price data for
    
    *Response*
 
