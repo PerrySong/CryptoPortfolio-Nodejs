@@ -49,8 +49,7 @@ module.exports = (app) => {
     app.get('/administrator/list', usersController.list)
     //Administrator manully send email notifications to every user.
     app.post('/administrator/sendall', administratorController.sendEmail)
-
-    app.get('/list', usersController.list);
+    
 
     //Portfolio routes
     app.get('/user/asset', portfolioController.currentAsset);
@@ -64,5 +63,8 @@ module.exports = (app) => {
     app.post('/user/price-historical', cryptoInfoController.priceHistorical);
 
     app.get('/listp', portfolioController.listPortfolio)
+    //It is a route for test
+    app.get('/list', usersController.list);
+
 
 }

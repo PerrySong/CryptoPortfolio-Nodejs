@@ -44,7 +44,8 @@
 
 ### Logics
 
-[Authorization Logic](#authorization-logic)  
+[Authorization](#authorization)  
+[Notification](#notification)
 [Issues](#issues) 
 
 

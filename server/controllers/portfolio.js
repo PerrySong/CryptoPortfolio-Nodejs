@@ -71,7 +71,7 @@ module.exports = {
                     res.status(403).send({message: 'No portfolio'});
                 }
             })
-            .catch(err => res.status(400).send(err));
+            .catch(err => res.status(400).send({error: err}));
         } else {
             res.status(403).send({message: 'Please log in'});
         }
