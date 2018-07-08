@@ -5,14 +5,14 @@ const cors = require('cors');
 const schedule = require('node-schedule');
 const notification = require('./server/services/notification');
 
-const search = require('./server/helpers/crypto-search/search');
+// const search = require('./server/helpers/crypto-search/search');
 
 
 // const btc = search.nameToSymbols('BTC')
 // console.log(btc);
 // console.log(search.symbolToNames('Btc'));
 
-console.log(search.searchName("bit"))
+// console.log(search.searchName("bit"))
 // console.log(search.searchSymbol("bit"))
 
 //Send email notification to user at 8am every day
