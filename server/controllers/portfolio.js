@@ -36,11 +36,8 @@ updateWallet = (portfolio, type, amount) => {
 module.exports = {
 
     createTransaction(req, res) {
-        console.log("create transaction");
         const user = req.currentUser;
         if (user) {
-            console.log("user = ")
-            
             Portfolio.findOne({
                 where: {
                     userId: user.id
@@ -48,7 +45,7 @@ module.exports = {
             })
             .then(curPortfolio => {
                 if (curPortfolio){
-
+                    
                     return Transaction
                     .create({
                         // need to coop makeTransaction method in Portfolio controller
@@ -63,7 +60,6 @@ module.exports = {
                     .then(newTransaction => {
                         updateWallet(curPortfolio, req.body.sell_type, -req.body.sell_amount),
                         updateWallet(curPortfolio, req.body.income_type, req.body.income_amount),
-                        console.log("newTransaction")
                         res.status(200).send(newTransaction)
                     })
                     .catch(err => res.status(400).send({error: err}));
@@ -80,8 +76,6 @@ module.exports = {
     currentAsset(req, res) {
         const user = req.currentUser;
         if (user) {
-            // console.log(Portfolio.findOrCreate);
-            
             Portfolio.findOne({where: {userId: user.id}})
 
             .then(portfolio => {
@@ -103,7 +97,6 @@ module.exports = {
     },
 
     listPortfolio(req, res) {
-            console.log("hey")
             return Coin
                 .findAll({
     

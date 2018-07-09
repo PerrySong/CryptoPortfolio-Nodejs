@@ -30,6 +30,9 @@
 	* [Administrator List Users](#administration-list-users)  
 	* [Administrator Send Email to All Users](#administration-send-email-to-all-users)  
 
+* Transaction
+    * [Make Tansaction](#make-transaction)
+    * [Asset](#asset)
 
 
 * Crypto Information  
@@ -502,7 +505,7 @@
 
 ---
 
-* * # Administrator Send Email to All Users:
+* # Administrator Send Email to All Users:
     *Request*
         `POST /administrator/sendall`
         
@@ -516,7 +519,10 @@
     message      | string        | Optional            | message
     html         | string        | Optional            | html included in email
     
+---
 
+* # Transaction:
+    This feature is for users to make trasaction and check their current assets.
 
 ---
 

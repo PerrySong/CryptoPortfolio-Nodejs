@@ -14,11 +14,7 @@ module.exports = {
         const message = req.body.message;
         const html = req.body.html;
         User.findAll().then(users => {
-            //Following code will show the all the users' emails for every user
-            // const emailList = users.map(user => {
-            //                         if(user.public)
-            //                             return user.email});
-            // emailNotification.sendEmail(req, res, subject, message, html, emailList);
+            
             let arrLength = users.length;
             for (let i = 0; i < arrLength; i++) {
                 emailNotification.sendEmail(req, res, subject, message, html, users[i].email);
