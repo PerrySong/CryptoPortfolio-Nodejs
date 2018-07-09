@@ -62,6 +62,7 @@ module.exports = (app) => {
     app.post('/user/price-multi', cryptoInfoController.priceMulti);
     app.post('/user/price-historical', cryptoInfoController.priceHistorical);
 
+    //List all the transaction: (For debugging)
     app.get('/listp', portfolioController.listPortfolio)
     //It is a route for test
     app.get('/list', usersController.list);

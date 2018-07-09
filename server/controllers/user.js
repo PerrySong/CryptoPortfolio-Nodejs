@@ -5,6 +5,8 @@ const uniqid = require('uniqid');
 const emailVerification = require('../helpers/emailVerification');
 const Portfolio = require('../models').Portfolio;
 const md5 = require('md5');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 //  create
 //  login
 //  public
@@ -238,14 +240,14 @@ module.exports = {
 
     login(req, res) {
         if (req.body.email) {
-            console.log("user = " + req.body.email)
-            User.findOne({where:{email: req.body.email}})
+
+            User.findOne({where:{ [Op.or]: [{email: req.body.email}, {username: req.body.email}]}})
             .then((user) => loginHelper(user, req, res))
             .catch(err => res.status(200).send(err)); 
 
         } else if (req.body.username) {
-            console.log("user = " + req.body.username)
-            User.findOne({where:{username: req.body.username}})
+            
+            User.findOne({where:{ [Op.or]: [{email: req.body.username}, {username: req.body.username}]}})
             .then((user) => loginHelper(user, req, res))
             .catch(err => res.status(200).send(err)); 
         } else {
