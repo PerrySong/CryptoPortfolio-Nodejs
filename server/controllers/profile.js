@@ -14,6 +14,7 @@ module.exports = {
         }
       })
       .then(curProfile => {
+        console.log("email = ")
           console.log(typeof(req.body.email));
         if (curProfile){
           curProfile.update({
@@ -149,7 +150,7 @@ module.exports = {
           .catch((err) => res.status(400).send({error: err}));
         }
       })
-      .catch((err) => res.status(400).send({error: err}));
+      .catch((err) => res.status(402).send({error: err}));
     } else {
       res.status(403).send({message: 'Please log in'});
     }

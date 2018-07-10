@@ -1,4 +1,6 @@
 # API Documentation
+### Important!
+*All the array parameters are not available, you can only pass one single parameter instead!*
 
 ### Routes
 
@@ -11,7 +13,7 @@
  * Setting  
   	* [Public](#public)  
 	* [Private](#private)  
-	* [Post Setting](#post-setting)  
+	* [Update Setting](#update-setting)  
 	* [Get Setting](#get-setting)
 
 
@@ -175,7 +177,9 @@
 
     *Response*
 ```json
-    welcome API
+    {
+        "message": "Your status has been changed to public"
+    }
 ```
 
 ```json
@@ -199,7 +203,9 @@
 
     *Response*
 ```json
-    welcome API
+    {
+        "message": "Your status has been changed to private"
+    }
 ```
 
 ```json
@@ -210,10 +216,10 @@
 
 ---
 
-* # Post Setting
+* # Update Setting
 
 	*Request*
-    `POST /user/setting`
+    `PUT /user/setting`
     
 	header       | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
@@ -432,10 +438,10 @@
 
     Parameters   | Data Type     | Required / Optional | Description
     ------------ | ------------- | ------------------- | -----------
-    email        | string        | Optional            | your email 
-    password     | string        | Optional            | your password
-    firstname    | string        | Optional            | your first name
-    lastname     | string        | Optional            | your last name
+    email        | string        | Required            | your email 
+    password     | string        | Required            | your password
+    firstname    | string        | Required            | your first name
+    lastname     | string        | Required            | your last name
     public       | string        | Optional            | If you willing to share you profile
 
     
@@ -574,7 +580,7 @@
 ```
 ---
 
-* # Asset
+* # Asset:
 	
     Check user's current assets (All the currency type and amount the user recently hold) 
 
@@ -722,7 +728,6 @@ Get the current price of any cryptocurrency in any other currency.
 
 * # Price Multi
 
-
 Works like price, except it allows you to specify a matrix of From Symbols.
 
 *Request*
@@ -812,7 +817,7 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
 ---
 * # Authorization
 
-    * Every route start with baseURL/user/ will check the token sent by a client, and the server will recognize the token and know which user you are. If you update your email, username or password, the token will expire.
+    * Every route start with baseURL/user/ will check the token sent by a client, and the server will recognize the token and know which user you are. If you update your email, username or password, the token will expire. Also, the token will expire after it was generated 24h.
 
     * Our backend will send a confirmation link when user registers his/her account. The link contains an encrypted parameter which includes user registration information. When the user clicks the link backend verify and decode the parameter    using a private key to acquire the user's registration information then create an    account accordingly.
  
@@ -828,3 +833,5 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
    * We are currently using Gmail for sending email, which could cause problems when it comes to sending bulk emails.   
 
    * When sending notifications, server traverses the every user. And traverse every coin the user has. The time complexity will be O(n * m), which should be improved.
+
+   * All the array parameters are not available, you can only pass one single parameter instead!

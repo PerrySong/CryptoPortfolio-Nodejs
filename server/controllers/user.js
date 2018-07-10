@@ -234,8 +234,14 @@ module.exports = {
                         createAdministratorAccountHelper(req, res);   
                     }
                 })
+                .catch(err => res.status(403).send({
+                    error: err
+                }))
             }
-        })        
+        }) 
+        .catch(err => res.status(404).send({
+            error: err
+        }))       
     },  
 
     login(req, res) {
@@ -270,7 +276,9 @@ module.exports = {
                 .update({
                     public: true
                 })
-                .then(res.redirect('bcak'))
+                .then(res.status(200).send({
+                    message: "Your status has been changed to public."
+                }))
                 .catch(((err) => res.status(400).send({error: err})))
             })
             .catch(((err) => res.status(400).send({error: err})))
@@ -295,7 +303,7 @@ module.exports = {
                 .update({
                     public: false
                 })
-                .then(res.redirect('back'))
+                .then(res.status(200).send("Your status has been changed to private."))
                 .catch(((err) => res.status(400).send({error: err})))
             })
             .catch(((err) => res.status(400).send({error: err})))
@@ -338,7 +346,7 @@ module.exports = {
                     .catch((err) => res.status(400).send({error: err}));
                 }
             })
-            .catch((error) => res.status(400).send({error: err}));
+            .catch((err) => res.status(400).send({error: err}));
         }
     },
 

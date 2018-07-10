@@ -14,11 +14,10 @@ module.exports = {
         const message = req.body.message;
         const html = req.body.html;
         User.findAll().then(users => {
-            
+            let emailList = users.map(user => { return user.email })
             let arrLength = users.length;
-            for (let i = 0; i < arrLength; i++) {
-                emailNotification.sendEmail(req, res, subject, message, html, users[i].email);
-            }
+            emailNotification.sendEmail(req, res, subject, message, html, emailList);
+            
         })
     }
 }

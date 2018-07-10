@@ -3,6 +3,7 @@ const Coin = require('../models').Coin;
 const Transaction = require('../models').Transaction;
 
 updateWallet = (portfolio, type, amount) => {
+    console.log("Here!!!")
     if (portfolio){
         Coin.findOne({
             where: {
@@ -11,6 +12,7 @@ updateWallet = (portfolio, type, amount) => {
             }
         })
         .then(curCoin => {
+            console.log(curCoin)
             if (curCoin){
                 let newAmount = Number(curCoin.amount) + Number(amount)
                 curCoin.update({
@@ -24,6 +26,7 @@ updateWallet = (portfolio, type, amount) => {
                     amount: amount,
                     portfolioId: portfolio.id
                 })
+                .then(curCoin => console.log(curCoin))
                 .catch((err) => res.status(400).send({error: err}));
             }
         })
@@ -36,6 +39,7 @@ updateWallet = (portfolio, type, amount) => {
 module.exports = {
 
     createTransaction(req, res) {
+        
         const user = req.currentUser;
         if (user) {
             Portfolio.findOne({
@@ -45,7 +49,7 @@ module.exports = {
             })
             .then(curPortfolio => {
                 if (curPortfolio){
-                    
+                    console.log("Here!!!")
                     return Transaction
                     .create({
                         // need to coop makeTransaction method in Portfolio controller
@@ -58,6 +62,7 @@ module.exports = {
                         portfolioId: curPortfolio.id
                     })
                     .then(newTransaction => {
+                        
                         updateWallet(curPortfolio, req.body.sell_type, -req.body.sell_amount),
                         updateWallet(curPortfolio, req.body.income_type, req.body.income_amount),
                         res.status(200).send(newTransaction)

@@ -19,6 +19,7 @@ module.exports = (app) => {
     app.use('/administrator', jwtCheck);
     app.use('/register', formatChecker.registerChecker);
     app.use('/verify/register', formatChecker.registerChecker);
+    app.use('/adminregister', formatChecker.registerChecker);
     app.use('/administrator', isAdmin);
     
     //Users' routes:
