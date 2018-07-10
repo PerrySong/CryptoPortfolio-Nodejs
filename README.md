@@ -1,6 +1,7 @@
 # API Documentation
 ### Important!
 *All the array parameters are not available, you can only pass one single parameter instead!*
+*Price Historical route are not availavle for now*
 
 ### Routes
 
