@@ -3,7 +3,7 @@
 *All the array parameters are not available, you can only pass one single parameter instead!*
 *Price Historical route is not available for now*
 
-### Routes
+### Routes  
 
  * Authentication  
     * [Register](#register)  
