@@ -835,8 +835,14 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
     ```
     Congratulation! You are all set.
 
+* # Recommendation Coins
+
+   Returns an ranked sorted array of Coins' symbol which represent the top recommendations
+   for that individual user based on knn. number is the number of recommendations you want to receive.
+   asking for recommendations queries the 'recommendedZSet' sorted set for the user.
+   
     *Request*
-        `POST /user/recommendation`
+        `POST /user/recommend/coins`
 
     header       | Data Type     | Required / Optional | Description
    ------------ | ------------- | ------------------- | -----------
@@ -844,23 +850,11 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
     
    Parameters   | Data Type     | Required / Optional | Description
    -------------|---------------|---------------------|-------------
-   method       | String        | Required            | "recommandCoins" or "recommandUsers"
-   number       | Integer       | Optional            | Only needed when use method: "recommandCoins"
+   number       | Integer       | required            | How many coins do you want to recommend to user
 
 
-   recommandCoins: returns an ranked sorted array of Coins' symbol which represent the top recommendations
-   for that individual user based on knn. number is the number of recommendations you want to receive.
-   asking for recommendations queries the 'recommendedZSet' sorted set for the user.
-   
-   recommandUsers: returns an array of the 'similarityZSet' ranked sorted set for the user which
-   represents their ranked similarity to all other users given the
-   Jaccard Coefficient. the value is between -1 and 1. -1 means that the
-   user is the exact opposite, 1 means they're exactly the same.
-   ex. results = ['garyId', 'andrewId', 'jakeId']
 
    *Response*
-
-*Recommand coins*
 
 
 ```json
@@ -869,14 +863,7 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
         "ETH"
     ]
 ``` 
-*Recommand users*
-```json
-    [
-        "Huang Xiaoming",
-        "Sun Zhongshan",
-        "Li Bai"
-    ]
-``` 
+
 
 ```json
     {
@@ -884,6 +871,41 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
     }
 ```
 ---
+
+* # Recommendation Users
+    *Request*
+        `POST /user/recommend/users`
+
+    header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+    
+   Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+
+---
+    returns an array of the 'similarityZSet' ranked sorted set for the user which
+   represents their ranked similarity to all other users given the
+   Jaccard Coefficient. the value is between -1 and 1. -1 means that the
+   user is the exact opposite, 1 means they're exactly the same.
+   ex. results = ['garyId', 'andrewId', 'jakeId']
+
+    *Response*
+```json
+    [
+        "Huang Xiaoming",
+        "Sun Zhongshan",
+        "Li Bai"
+    ]
+``` 
+```json
+    {
+        "error": "error message"
+    }
+```
+---
+
+
 * # Authorization
 
     * Every route start with baseURL/user/ will check the token sent by a client, and the server will recognize the token and know which user you are. If you update your email, username or password, the token will expire. Also, the token will expire after it was generated 24h.

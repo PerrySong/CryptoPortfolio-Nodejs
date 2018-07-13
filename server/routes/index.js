@@ -66,7 +66,8 @@ module.exports = (app) => {
 
     //Recommendation:
     // req: number/Integer method/String
-    app.post('/user/recommendation', recommendationController.recommend);
+    app.post('/user/recommendCoins', recommendationController.recommendCoins);
+    app.post('/user/recommendUsers', recommendationController.recommendUsers);
 
     //List all the transaction: (For debugging)
     app.get('/listp', portfolioController.listPortfolio)
