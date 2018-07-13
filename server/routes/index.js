@@ -66,13 +66,12 @@ module.exports = (app) => {
 
     //Recommendation:
     // req: number/Integer method/String
-    app.post('/user/recommendCoins', recommendationController.recommendCoins);
-    app.post('/user/recommendUsers', recommendationController.recommendUsers);
+    app.post('/user/recommend/coins', recommendationController.recommendCoins);
+    app.post('/user/recommend/users', recommendationController.recommendUsers);
 
     //List all the transaction: (For debugging)
     app.get('/listp', portfolioController.listPortfolio)
     //It is a route for test
     app.get('/list', usersController.list);
-
 
 }
