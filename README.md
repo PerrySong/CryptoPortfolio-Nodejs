@@ -817,6 +817,23 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
 
     Recommend Users or Coins base on user's current portfolio
 
+    For this function you need to install redis and its server, and run redis in backend
+
+    ```
+        npm install redis redis-server --save
+    ```
+    Install redis using brew:
+    ```
+        $ brew install redis
+    ```
+
+    Run redis in terminal:
+
+    ```
+        $ redis-server
+    ```
+    Congratulation! You are all set.
+
     *Request*
         `POST /user/recommendation`
 
