@@ -45,7 +45,8 @@
 	* [Price Multi](#price-multi)  
     * [Price Historical](#price-historical)
 
-
+* Recommendation
+    * [Recommendation](#recommendation)
 
 
 ### Logics
