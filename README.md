@@ -890,7 +890,7 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
    user is the exact opposite, 1 means they're exactly the same.
    ex. results = ['garyId', 'andrewId', 'jakeId']
 
-    *Response*
+   *Response*
 ```json
     [
         "Huang Xiaoming",
