@@ -813,8 +813,45 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
  }
 
 ```
+* # Recommendation:
 
+    Recommend Users or Coins base on user's current portfolio
 
+    *Request*
+        `POST /user/recommendation`
+
+    header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+    
+   Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+   method       | String        | Required            | "recommandCoins" or "recommandUsers"
+   number       | Integer       | Optional            | Only needed when use method: "recommandCoins"
+
+   *Response*
+
+*Recommand coins*
+```json
+    [
+        "BTC",
+        "ETH"
+    ]
+``` 
+*Recommand users*
+```json
+    [
+        "Huang Xiaoming",
+        "Sun Zhongshan",
+        "Li Bai"
+    ]
+``` 
+
+```json
+    {
+        "error": "error message"
+    }
+```
 ---
 * # Authorization
 

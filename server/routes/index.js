@@ -5,7 +5,8 @@ const usersController = require('../controllers').user,
       portfolioController =require('../controllers').portfolio,
       formatChecker = require('../helpers/formatChecker'),
       administratorController = require('../controllers').administrator,
-      cryptoInfoController = require('../controllers').cryptoInfo;
+      cryptoInfoController = require('../controllers').cryptoInfo,
+      recommendationController = require('../controllers').recommendation
 
     
 
@@ -62,6 +63,10 @@ module.exports = (app) => {
     app.post('/user/price', cryptoInfoController.price);
     app.post('/user/price-multi', cryptoInfoController.priceMulti);
     app.post('/user/price-historical', cryptoInfoController.priceHistorical);
+
+    //Recommendation:
+    // req: number/Integer method/String
+    app.post('/user/recommendation', recommendationController.recommend);
 
     //List all the transaction: (For debugging)
     app.get('/listp', portfolioController.listPortfolio)
