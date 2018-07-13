@@ -31,7 +31,7 @@ const recommendCoins = (req, res, userToCoin, username, recommendNumber, recomme
             res.status(200).send(results)
         });
     } else if (recommendMethod == 'recommendUsers') {
-        raccoon.mostSimilarUsers('userId').then((results) => {
+        raccoon.mostSimilarUsers(username).then((results) => {
             res.status(200).send(results)
         });
     } else {
