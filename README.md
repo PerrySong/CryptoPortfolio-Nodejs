@@ -36,7 +36,7 @@
 * Transaction
     * [Make Tansaction](#make-transaction)
     * [Asset](#asset)
-    * [List Transactions](#list-transactions)
+    * [List Transactions](#list-transactions) (new)
 
 
 * Crypto Information  
@@ -47,7 +47,7 @@
     * [Price Historical](#price-historical)
 
 * Recommendation
-    * [Recommendation](#recommendation)
+    * [Recommendation](#recommendation) (new)
 
 
 ### Logics
