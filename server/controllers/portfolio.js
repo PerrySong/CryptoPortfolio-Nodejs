@@ -101,6 +101,24 @@ module.exports = {
         }
     },
 
+    transactionHistory(req, res) {
+        userId = req.currentUser.id;
+        Portfolio.findOne({where: {userId: userId}})
+        .then(portfolio => {
+            Transaction.findAll({where: {portfolioId: portfolio.id}})
+            .then(transactions => {
+                res.status(200).send(transactions)
+            })
+            .catch(err => res.status(404).send({
+                error: err
+            }))
+            
+        })
+        .catch(err => res.status(404).send({
+            error: err
+        }))
+    },
+
     listPortfolio(req, res) {
             return Coin
                 .findAll({

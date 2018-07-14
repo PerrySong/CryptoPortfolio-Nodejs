@@ -619,6 +619,53 @@
 ```
 ---
 
+* # Asset:
+	
+    List all the transactions the user has made
+ 
+    *Request*
+        `GET /user/transactions`	
+        
+    header       | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    authorization| jwt token     | Required            | Your jwt token
+
+     *Response*
+```json     
+     [
+        {
+            "id": 6,
+            "sell_type": "BTC",
+            "sell_price": 6000,
+            "sell_amount": 10,
+            "income_type": "USD",
+            "income_price": 1,
+            "income_amount": 6000,
+            "createdAt": "2018-07-10T00:32:56.310Z",
+            "updatedAt": "2018-07-10T00:32:56.310Z",
+            "portfolioId": 7
+        }, 
+        {
+            "id": 7,
+            "sell_type": "BTC",
+            "sell_price": 6000,
+            "sell_amount": 10,
+            "income_type": "USD",
+            "income_price": 1,
+            "income_amount": 6000,
+            "createdAt": "2018-07-11T00:32:56.310Z",
+            "updatedAt": "2018-07-11T00:32:56.310Z",
+            "portfolioId": 7
+        },
+    ]
+```
+
+```json
+    {
+        "error": "Some error message"
+    }
+```
+---
 * # List Coins:
 
     Get the current list of all cryptocurrencies and the following information about each coin.

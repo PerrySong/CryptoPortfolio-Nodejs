@@ -56,6 +56,7 @@ module.exports = (app) => {
     //Portfolio routes
     app.get('/user/asset', portfolioController.currentAsset);
     app.post('/user/make-transaction', portfolioController.createTransaction);
+    app.get('/user/transactions', portfolioController.transactionHistory);
 
     //Coins infomations routes:
     app.get('/user/coinlist', cryptoInfoController.coinList);
@@ -69,8 +70,7 @@ module.exports = (app) => {
     app.post('/user/recommend/coins', recommendationController.recommendCoins);
     app.post('/user/recommend/users', recommendationController.recommendUsers);
 
-    //List all the transaction: (For debugging)
-    app.get('/listp', portfolioController.listPortfolio)
+    
     //It is a route for test
     app.get('/list', usersController.list);
 
