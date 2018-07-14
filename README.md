@@ -36,6 +36,7 @@
 * Transaction
     * [Make Tansaction](#make-transaction)
     * [Asset](#asset)
+    * [List Transactions](#list-transactions)
 
 
 * Crypto Information  
@@ -619,7 +620,7 @@
 ```
 ---
 
-* # Asset:
+* # List Transactions:
 	
     List all the transactions the user has made
  
