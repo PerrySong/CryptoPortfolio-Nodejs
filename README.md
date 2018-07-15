@@ -992,3 +992,5 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
    * When sending notifications, server traverses the every user. And traverse every coin the user has. The time complexity will be O(n * m), which should be improved.
 
    * All the array parameters are not available, you can only pass one single parameter instead!
+
+   * Update setting can set username and email but does not check if they are duplicated. 
