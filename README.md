@@ -5,6 +5,7 @@
 
 ### Routes  
 
+ * [Set Up Redis][#set-up-redis]   
  * Authentication  
     * [Register](#register)  
 	* [Register with email verification](#register-with-email-verification)  
@@ -58,7 +59,24 @@
 
 
 
+---
 
+* # Set Up Redis:
+
+```
+        npm install redis redis-server --save
+    ```
+    Install redis using brew:
+    ```
+        $ brew install redis
+    ```
+
+    Run redis in terminal:
+
+    ```
+        $ redis-server
+    ```
+    Congratulation! You are all set.
 
 ---
 
