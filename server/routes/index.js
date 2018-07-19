@@ -42,6 +42,13 @@ module.exports = (app) => {
     app.get('/user/profile/clear', profileController.clearProfile);
     app.delete('/user/profile', profileController.destroyProfile);
 
+     //Users' friends route:
+     app.post('/user/profile/friends',profileController.addFriends);
+     app.get('/user/profile/friends',profileController.listFriends);
+     app.post('/user/profile/friends/search',profileController.searchFriends);
+     app.delete('/user/profile/friends/delete',profileController.deleteFriends);
+     app.post('/user/profile/friends/portfolio',profileController.getFriendPortfolio);
+
     //Email verify register routes
     app.post('/verify/register', usersController.sendVerifyEmail);
     app.get('/verify/:jwttoken', usersController.verifyAndCreateUser);
