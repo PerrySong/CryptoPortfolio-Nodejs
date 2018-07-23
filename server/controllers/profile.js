@@ -12,12 +12,12 @@ searchUser = (item, names) => {
     return User
     .findOne({
         where: {
-            id: item
+            id: item // 'item' variable name not explicit
         }
     })
     .then(user => {
         if(user){
-            var username = user.username
+            var username = user.username 
             names.push({
                 username: username,
                 id: item
