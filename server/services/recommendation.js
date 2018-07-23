@@ -25,12 +25,13 @@ const recommendCoins = (req, res, userToCoin, username, recommendNumber, recomme
         })
     })
     console.log(recommendMethod)
-    if (recommendMethod == 'recommendCoins') {
+    // If the method is recommendCoins: 
+    if (recommendMethod === 'recommendCoins') {
         raccoon.recommendFor(username, recommendNumber).then((results) => {
             console.log(results)
             res.status(200).send(results)
         });
-    } else if (recommendMethod == 'recommendUsers') {
+    } else if (recommendMethod === 'recommendUsers') {
         raccoon.mostSimilarUsers(username).then((results) => {
             res.status(200).send(results)
         });
@@ -84,9 +85,6 @@ const recommend = (req, res) => {
 
     return userToCoin;         
 }
-
-
-
 
 module.exports = {
     recommend
