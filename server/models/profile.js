@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     github: DataTypes.STRING,
     interest: DataTypes.STRING,
-    investment: DataTypes.STRING
+    investment: DataTypes.STRING,
+    friends: DataTypes.ARRAY(DataTypes.STRING)
   }, {});
   Profile.associate = function(models) {
     Profile.belongsTo(models.User, {

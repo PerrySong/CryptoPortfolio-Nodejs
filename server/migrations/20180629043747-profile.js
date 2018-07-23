@@ -19,6 +19,9 @@ module.exports = {
       investment: {
         type: Sequelize.STRING
       },
+      friends: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

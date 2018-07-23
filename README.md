@@ -8,9 +8,8 @@
  * [Set Up Redis](#set-up-redis)   
  * Authentication  
     * [Register](#register)  
-	* [Register with email verification](#register-with-email-verification)  
+	* [Register with email verification](#register-with-email-verification)
 	* [Login](#login)
-
 
  * Setting  
   	* [Public](#public)  
@@ -26,7 +25,13 @@
 	* [Update Profile](#update-profile)  
 	* [Clear Profile](#clear-profile) 
 
-
+* Friend List
+	* [Friends List](#friends-list)
+	* [Add Friends](#add-friends)
+    * [Search Friends](#search-friends)
+	* [List Friends](#list-friends)
+	* [Delete Friends](#delete-friends)
+	* [Display Friend Asset](#display-friend-asset)
 
  * Administration  
   	* [Administration](#administration)  
@@ -64,17 +69,17 @@
 * # Set Up Redis:
 
 ```
-        npm install redis redis-server --save
+    npm install redis redis-server --save
 ```
 Install redis using brew:
 ```
-        $ brew install redis
+    $ brew install redis
 ```
 
 Run redis in terminal:
 
 ```
-        $ redis-server
+    $ redis-server
 ```
 Congratulation! You are all set.
 
@@ -444,6 +449,135 @@ Congratulation! You are all set.
         "error": "reason why your request failed"
     }
 ```
+
+---
+
+* # Friends List:
+    This feature is for users managing their list of friends.
+
+---
+
+* # Add Friends:
+
+    *Request*
+        `POST /user/profile/friends`
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    userId       | string        | Required            | user id of the friend
+
+
+
+   *Response*
+
+```json
+    {
+        "id": 1,
+        "email": "test01@email",
+        "github": "test01.github",
+        "interest": "coding",
+        "investment": "10000",
+        "friends": [
+            "user-5b4h5w8jjki83tj",
+            "user-5b4h5w8jjki80es",
+            "user-5b4h5w8jjki7wl7"
+        ],
+        "createdAt": "2018-07-13T21:52:23.566Z",
+        "updatedAt": "2018-07-17T04:44:22.660Z",
+        "userId": "user-5b4h5w8jjki7sq9"
+    }
+```
+
+---
+
+* # Search friends
+    *Request*
+        `POST /user/profile/friends/searchname`
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    username     | string        | Required            | username of the friend
+
+   *Response*
+   All users' information which matches given Username
+```json
+[
+    {
+        "id": "user-5b4h5w8jjki7wl7",
+        "email": "test02@gmail.com",
+        "username": "test02",
+        "password": "35bacce75bdb5c98e3a2afbe6c1b57df",
+        "firstname": "Test",
+        "lastname": "01",
+        "public": true,
+        "administrator": false,
+        "createdAt": "2018-07-13T21:38:27.643Z",
+        "updatedAt": "2018-07-13T21:38:27.643Z"
+    }
+]
+```
+
+---
+
+* # List Friends:
+
+    *Request*
+        `GET /user/profile/friends`
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    userId       | string        | Required            | user id of the friend
+
+
+
+   *Response*
+ ```json
+    [
+      {
+          "username": "test04",
+          "id": "user-5b4h5w8jjki83tj"
+      },
+      {
+          "username": "test03",
+          "id": "user-5b4h5w8jjki80es"
+      },
+      {
+          "username": "test01",
+          "id": "user-5b4h5w8jjki7sq9"
+      },
+      {
+          "username": "test02",
+          "id": "user-5b4h5w8jjki7wl7"
+      }
+	]
+```
+
+---
+
+
+* # Delete Friends:
+
+    *Request*
+        `DELETE /user/profile/friends/delete`
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    userId       | string        | Required            | user id of the friend
+
+
+---
+
+
+* # Display Friend Asset:
+
+    *Request*
+        `POST /user/profile/friends/portfolio`
+
+    Parameters   | Data Type     | Required / Optional | Description
+    ------------ | ------------- | ------------------- | -----------
+    userId       | string        | Required            | user id of the friend
+
+
 
 ---
 

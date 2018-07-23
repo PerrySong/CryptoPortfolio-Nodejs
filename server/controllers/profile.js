@@ -1,4 +1,33 @@
 const Profile = require('../models').Profile;
+const User = require('../models').User;
+const Portfolio = require('../models').Portfolio;
+const Coin = require('../models').Coin;
+const Transaction = require('../models').Transaction;
+
+//This is a helper method that search user based on ID
+searchUser = (item, names) => {
+    console.log("search User")
+    console.log("user id: ")
+    console.log(item)
+    return User
+    .findOne({
+        where: {
+            id: item
+        }
+    })
+    .then(user => {
+        if(user){
+            var username = user.username
+            names.push({
+                username: username,
+                id: item
+            });
+            console.log("search names");
+            console.log(names);
+        }
+    })
+    .catch(err => console.log(err));
+}
 
 module.exports = {
 
@@ -14,7 +43,6 @@ module.exports = {
         }
       })
       .then(curProfile => {
-        console.log("email = ")
           console.log(typeof(req.body.email));
         if (curProfile){
           curProfile.update({
@@ -55,13 +83,15 @@ module.exports = {
         }
       })
       .then(curProfile => {
+        var newFriend = ['user-dummy'];
         return Profile
         .create({
             email: req.body.email,
             github: req.body.github,
             interest: req.body.interest,
             investment: req.body.investment,
-            userId: user.id
+            userId: user.id,
+            friends: newFriend
         })
         .then(curProfile => res.status(200).send(curProfile))
         .catch((err) => res.status(400).send({error: err}));
@@ -87,9 +117,9 @@ module.exports = {
         else
           res.status(404).send({
             error: "You do not have profile yet"
-          })  
+          })
       }) // Should send the profile we found
-      .catch((err) => res.status(400).send({error: error})) // Should have catch the error      
+      .catch((err) => res.status(400).send({error: error})) // Should have catch the error
     } else {
       res.status(403).send({message: 'Please log in'});
     }
@@ -118,7 +148,7 @@ module.exports = {
         } else {
           res.status(404).send({
             error: "You currently do not have profile."
-          })  
+          })
         }
       })
       .catch((err) => res.status(400).send({error: err}));
@@ -150,7 +180,7 @@ module.exports = {
           .catch((err) => res.status(400).send({error: err}));
         }
       })
-      .catch((err) => res.status(402).send({error: err}));
+      .catch((err) => res.status(400).send({error: err}));
     } else {
       res.status(403).send({message: 'Please log in'});
     }
@@ -263,6 +293,11 @@ module.exports = {
                 message: 'Friend Not Found',
               });
           } else {
+            if (user.id === req.body.userId){
+                return res.status(400).send({
+                  message: 'Cannot add yourself into friend list',
+                });
+            }
             res.status(200).send(curProfile.friends[index]);
           }
         }
@@ -271,6 +306,21 @@ module.exports = {
     } else {
       res.status(403).send({message: 'Please log in'});
     }
+  },
+
+  searchFriendsName(req, res){
+      console.log("Search Friends by Name");
+      const user = req.currentUser;
+      if (user) {
+        // findAll Where
+        return User.findAll({where: {username: req.body.username}})
+        .then(users => res.status(200).send(users))
+        .catch(err => res.status(400).send({
+            error: err,
+        }))
+      } else {
+        res.status(403).send({message: 'Please log in'});
+      }
   },
 
   listFriends(req,res){
