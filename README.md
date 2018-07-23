@@ -65,17 +65,17 @@
 
 ```
         npm install redis redis-server --save
-    ```
+```
     Install redis using brew:
-    ```
+```
         $ brew install redis
-    ```
+```
 
     Run redis in terminal:
 
-    ```
+```
         $ redis-server
-    ```
+```
     Congratulation! You are all set.
 
 ---
