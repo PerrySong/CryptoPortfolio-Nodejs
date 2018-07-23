@@ -47,7 +47,7 @@ const recommend = (req, res) => {
     const recommendNumber = req.body.number
     const recommendMethod = req.body.method
     var userToCoin = new Object;
-
+    
     User.findAll()
     .then(function(users) {
         if (users) {

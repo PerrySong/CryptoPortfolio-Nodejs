@@ -217,6 +217,7 @@ module.exports = {
 
   // new friend is userid and treated as a string
   addFriends(req,res){
+
     console.log("Add New Friends");
     const user = req.currentUser;
     if (user) {
@@ -233,19 +234,18 @@ module.exports = {
           });
         } else {
           console.log("get curProfile");
-          if(curProfile.friends !== null){
+          if (curProfile.friends !== null) {
             console.log("Add to array");
-            if (curProfile.friends.indexOf(req.body.userId) !== -1){
+            if (curProfile.friends.indexOf(req.body.userId) !== -1) {
               res.status(403).send({message: 'Friends already added'});
-              } else {
-                  curProfile.friends.push(req.body.userId);
-                  curProfile.update({
-                    friends: curProfile.friends
-                  })
-                  .then(newProfile => res.status(200).send(newProfile))
-                  .catch((err) => res.status(400).send({error: err}));
-              }
-
+            } else {
+              curProfile.friends.push(req.body.userId);
+              curProfile.update({
+                friends: curProfile.friends
+              })
+              .then(newProfile => res.status(200).send(newProfile))
+              .catch((err) => res.status(400).send({error: err}));
+            }
           } else {
             console.log("create new array");
             var newArray = [req.body.userId];

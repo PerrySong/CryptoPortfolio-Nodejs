@@ -28,12 +28,12 @@ updateWallet = (portfolio, type, amount) => {
                     portfolioId: portfolio.id
                 })
                 .then(curCoin => console.log(curCoin))
-                .catch((err) => res.status(400).send({error: err}));
+                .catch((err) => res.status(400).send({error: err})); // Did not pass 'res' to updateWallet
             }
         })
-        .catch(err => res.status(400).send(err));
+        .catch(err => res.status(400).send(err)); // Did not pass 'res' to updateWallet
     } else {
-        return res.status(403).send({message: 'portfolio error' })
+        return res.status(403).send({message: 'portfolio error' }) // Did not pass 'res' to updateWallet
     }
 }
 
