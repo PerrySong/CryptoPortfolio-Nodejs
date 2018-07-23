@@ -2,6 +2,7 @@ const Portfolio = require('../models').Portfolio;
 const Coin = require('../models').Coin;
 const Transaction = require('../models').Transaction;
 
+
 updateWallet = (portfolio, type, amount) => {
     console.log("Here!!!")
     if (portfolio){
@@ -18,7 +19,7 @@ updateWallet = (portfolio, type, amount) => {
                 curCoin.update({
                     amount: newAmount
                 })
-                .catch((err) => res.status(400).send({error: err}));
+                .catch((err) => res.status(400).send({error: err}));  // Did not pass 'res' to updateWallet
             } else {
                 return Coin
                 .create({

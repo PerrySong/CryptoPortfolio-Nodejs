@@ -1,9 +1,4 @@
 const User = require('../models').User;
-const jwt = require('jsonwebtoken');
-const secret = require('../config').secret;
-const uniqid = require('uniqid');
-const emailVerification = require('../helpers/emailVerification');
-const md5 = require('md5');
 const emailNotification = require('../helpers/emailNotification');
 
 

@@ -56,6 +56,9 @@
     * [Recommendation](#recommendation) (new)
 
 
+* Test
+    * [Make a Transaction](#make-a-transaction) (new)
+
 ### Logics
 
 [Authorization](#authorization)  
@@ -1105,7 +1108,19 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
 ```
 ---
 
+# Test
 
+--
+* # Make a Transaction
+    
+    * To make a random transaction for every user in the DB:
+        
+        1. Go to your project's folder
+        2. run: ``` $ npm run make_a_transaction ```
+        3. control + c to exit the script
+
+
+---
 * # Authorization
 
     * Every route start with baseURL/user/ will check the token sent by a client, and the server will recognize the token and know which user you are. If you update your email, username or password, the token will expire. Also, the token will expire after it was generated 24h.

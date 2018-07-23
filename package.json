@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./bin/www",
+    "make_a_transaction": "node ./server/helpers/make_a_transaction.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
