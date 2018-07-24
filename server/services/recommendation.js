@@ -58,6 +58,7 @@ const recommend = (req, res) => {
                         if (portfolio) {
                             Coin.findAll({where:{portfolioId: portfolio.id}})
                             .then(coins => {
+                                console.log('Coin')
                                 const coinToAmount = new Object;
                                 coins.forEach(coin => {
                                     coinToAmount[coin.type] = coin.amount;
@@ -81,7 +82,7 @@ const recommend = (req, res) => {
 
     setTimeout(function(){
         recommendCoins(req, res, userToCoin, req.currentUser.username, recommendNumber, recommendMethod);       
-    },100);
+    },1000);
 
     return userToCoin;         
 }

@@ -25,7 +25,7 @@
 	* [Update Profile](#update-profile)  
 	* [Clear Profile](#clear-profile) 
 
-* Friend List
+* Friend List (new)
 	* [Friends List](#friends-list)
 	* [Add Friends](#add-friends)
     * [Search Friends](#search-friends)
@@ -1143,3 +1143,5 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
    * All the array parameters are not available, you can only pass one single parameter instead!
 
    * Update setting can set username and email but does not check if they are duplicated. 
+
+   * For recommendation, we use user-based recommendation. The problems with this method are that in the early stage of the product, there is no sufficient user's behaviors data. Second, how to store the users' similarity to the relational database is a question. The space complexity of the data will be O(n^2).
