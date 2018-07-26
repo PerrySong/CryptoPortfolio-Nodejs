@@ -1,3 +1,4 @@
+'use strict'
 const user = require('./user');
 const profile = require('./profile');
 const portfolio = require('./portfolio');

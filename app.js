@@ -1,3 +1,4 @@
+'use strict'
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
@@ -13,8 +14,6 @@ var j = schedule.scheduleJob('0 0 8 * * *', function(){
   console.log("sent email")
   notification.pushNotification();
 });
-
-console.log(Date.now())
 
 // Set up the express app
 const app = express();

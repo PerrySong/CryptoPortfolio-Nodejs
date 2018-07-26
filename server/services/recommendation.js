@@ -1,3 +1,4 @@
+'use strict'
 const User = require('../models').User,
       Portfolio = require('../models').Portfolio,
       Coin = require('../models').Coin,
@@ -83,6 +84,8 @@ const recommend = (req, res) => {
     setTimeout(function(){
         recommendCoins(req, res, userToCoin, req.currentUser.username, recommendNumber, recommendMethod);       
     },1000);
+
+    
 
     return userToCoin;         
 }

@@ -1,3 +1,4 @@
+'use strict'
 module.exports = (sequelize, DataTypes) => {
   var Portfolio = sequelize.define('Portfolio', {
     id: {

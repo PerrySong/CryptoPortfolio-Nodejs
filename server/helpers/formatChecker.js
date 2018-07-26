@@ -1,4 +1,3 @@
-
 // npm install validator
 const emailValidator = require('validator'),
 // npm install password-validator

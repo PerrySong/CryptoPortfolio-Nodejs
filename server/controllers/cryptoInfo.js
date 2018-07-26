@@ -1,3 +1,4 @@
+'use strict'
 const cc = require('../services/cryptoCompare');
 
 module.exports = {

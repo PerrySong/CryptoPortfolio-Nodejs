@@ -1,3 +1,4 @@
+'use strict'
 //This table indicate the coin's type and amount a user currently hold 
 module.exports = (sequelize, DataTypes) => {
   var Coin = sequelize.define('Coin', {

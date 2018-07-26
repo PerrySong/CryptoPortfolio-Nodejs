@@ -1,3 +1,4 @@
+'use strict'
 module.exports = {
     symbolToName: {
      "42": "42 Coin",

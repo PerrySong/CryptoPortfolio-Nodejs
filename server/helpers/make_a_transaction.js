@@ -1,3 +1,4 @@
+'use strict'
 const User = require('../models').User;
 const Portfolio = require('../models').Portfolio;
 const Coin = require('../models').Coin;

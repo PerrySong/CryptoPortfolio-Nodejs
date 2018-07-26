@@ -1,3 +1,4 @@
+'use strict'
 const usersController = require('../controllers').user,
       jwtCheck = require('../middleware/authorization').jwtCheck,
       isAdmin = require('../middleware/authorization').isAdmin,
