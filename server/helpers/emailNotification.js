@@ -1,4 +1,3 @@
-'use strict'
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const hmtlTemplate = require('../views/emailHtmlTemplate');

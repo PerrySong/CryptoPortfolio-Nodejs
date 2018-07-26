@@ -1,4 +1,3 @@
-'use strict'
 const recommendation = require('../services/recommendation');
 
 module.exports = {

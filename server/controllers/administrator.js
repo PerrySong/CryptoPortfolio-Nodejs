@@ -1,4 +1,3 @@
-'use strict'
 const User = require('../models').User;
 const emailNotification = require('../helpers/emailNotification');
 

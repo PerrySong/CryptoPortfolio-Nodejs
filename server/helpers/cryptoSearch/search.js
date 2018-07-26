@@ -1,4 +1,3 @@
-'use strict'
 const TrieSearch = require('trie-search'),
       cryptocurrencies = require('./cryptocurrencies')
       
