@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true,
       type: DataTypes.BOOLEAN,
     },
+    subscribes: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
+    },
     administrator: {
       defaultValue: false,
       type: DataTypes.BOOLEAN,

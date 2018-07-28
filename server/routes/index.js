@@ -2,16 +2,19 @@
 const usersController = require('../controllers').user,
       jwtCheck = require('../middleware/authorization').jwtCheck,
       isAdmin = require('../middleware/authorization').isAdmin,
+      reqBodyContainSymbol = require('../middleware/reqBodyContainSymbol'),
       profileController = require('../controllers').profile,
       portfolioController =require('../controllers').portfolio,
       formatChecker = require('../helpers/formatChecker'),
       administratorController = require('../controllers').administrator,
       cryptoInfoController = require('../controllers').cryptoInfo,
-      recommendationController = require('../controllers').recommendation
+      recommendationController = require('../controllers').recommendation,
+      subscribeController = require('../controllers').subscribe
 
     
 
 module.exports = (app) => {
+    console.log(reqBodyContainSymbol)
     app.get('/', (req, res) => res.status(200).send({
         message: 'Welcome to the UserAuth API!'
     }));
@@ -79,7 +82,10 @@ module.exports = (app) => {
     app.post('/user/recommend/coins', recommendationController.recommendCoins);
     // app.post('/user/recommend/users', recommendationController.recommendUsers);
 
-    
+    //Route for subscribe
+    app.post('/user/subscribe', reqBodyContainSymbol.check, subscribeController.subscribe);
+    app.post('/user/unsubscribe', reqBodyContainSymbol.check, subscribeController.unSubscribe);
+
     //It is a route for test
     app.get('/list', usersController.list);
 

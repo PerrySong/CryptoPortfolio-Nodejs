@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Portfolio.associate = function(models) {
+
     Portfolio.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
@@ -23,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'portfolioId',
         as: 'transaction',
     })
+
   };
   return Portfolio;
 };

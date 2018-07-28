@@ -15,10 +15,11 @@ var j = schedule.scheduleJob('0 0 8 * * *', function(){
   notification.pushNotification();
 });
 
-schedule.scheduleJob('0 * * * * *', function(){
-  console.log("Update similarity")
-  recommendation.updateSimilarity();
-});
+
+// schedule.scheduleJob('0 * * * * *', function(){
+//   console.log("Update similarity")
+//   recommendation.updateSimilarity();
+// });
 
 // Set up the express app
 const app = express('');

@@ -52,6 +52,10 @@
 	* [Price Multi](#price-multi)  
     * [Price Historical](#price-historical)
 
+* Subscribe
+    * [Subscribe](#subscribe)
+    * [Unsubscribe](#unsubscribe)
+
 * Recommendation
     * [Recommendation](#recommendation) (new)
 
@@ -1017,11 +1021,61 @@ Get all the current trading info (price, vol, open, high, low, etc.) of any list
  }
 
 ```
+----
+* # Subscribe:
+    Subscribe a currency that user like
+     *Request*
+        `POST /user/subscribe`
+
+    header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+
+    Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+   symbol       | String      | required            | coin's symbol
+
+
+
+    *Response*
+
+    ```json
+        message: some success message
+    ```
+    ```json
+        error: some error message
+    ```
+----
+* # Unsubscribe:
+    Subscribe a currency that user like
+     *Request*
+        `POST /user/unsubscribe`
+
+    header       | Data Type     | Required / Optional | Description
+   ------------ | ------------- | ------------------- | -----------
+   authorization| jwt token     | required            | Your jwt token
+
+    Parameters   | Data Type     | Required / Optional | Description
+   -------------|---------------|---------------------|-------------
+   symbol       | String      | required            | coin's symbol
+
+
+
+    *Response*
+
+    ```json
+        message: some success message
+    ```
+    ```json
+        error: some error message
+    ```    
+----
 * # Recommendation:
 
     Recommend Users or Coins base on user's current portfolio
 
     For this function you need to install redis and its server, and run redis in backend
+
 
     ```
         npm install redis redis-server --save

@@ -3,7 +3,8 @@ const profile = require('./profile');
 const portfolio = require('./portfolio');
 const administrator = require('./administrator');
 const cryptoInfo = require('./cryptoInfo');
-const recommendation = require('./recommendation')
+const recommendation = require('./recommendation');
+const subscribe = require('./subscribe')
 
 module.exports = {
     user,
@@ -11,5 +12,6 @@ module.exports = {
     portfolio,
     administrator,
     cryptoInfo,
-    recommendation
+    recommendation,
+    subscribe
 };

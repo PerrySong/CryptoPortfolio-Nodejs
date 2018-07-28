@@ -5,51 +5,71 @@ const TrieSearch = require('trie-search'),
       
 module.exports = {
     searchNames(name) {
-        
-        const ts = new TrieSearch();
-        ts.addFromObject(cryptocurrencies.nameToSymbol);
-        let itemsArray = ts.get(name);
-        
-        const namesArray = itemsArray.map(item => {
-            return item._key_;
+        return new Promise((resolve, reject) => {
+            const ts = new TrieSearch();
+            ts.addFromObject(cryptocurrencies.nameToSymbol);
+            let itemsArray = ts.get(name);
+            
+            const namesArray = itemsArray.map(item => {
+                return item._key_;
+            })
+            if(namesArray) {
+                resolve(namesArray);
+            } else {
+                return reject("Can not find the names.")
+            }
         })
-        
-        return namesArray;
     },
 
     searchSymbols(symbol) {
-        const ts = new TrieSearch();
-        ts.addFromObject(cryptocurrencies.symbolToName);
-        let itemsArray = ts.get(symbol);
-        
-        const symbolsArray = itemsArray.map(item => {
-            return item._key_;
+        return new Promise((resolve, reject) => {
+            const ts = new TrieSearch();
+            ts.addFromObject(cryptocurrencies.symbolToName);
+            let itemsArray = ts.get(symbol);
+            
+            const symbolsArray = itemsArray.map(item => {
+                return item._key_;
+            })
+            if(symbolsArray) {
+                resolve(symbolsArray);
+            } else {
+                return reject("Can not find the symbols.")
+            }
         })
-        return symbolsArray;
     },
 
     namesToSymbols(name) {
-        const ts = new TrieSearch();
-        ts.addFromObject(cryptocurrencies.nameToSymbol);
-        
-        let itemsArray = ts.get(name);
-        const symbolsArray = itemsArray.map(item => {
-            return item.value;
+        return new Promise((resolve, reject) => {
+            const ts = new TrieSearch();
+            ts.addFromObject(cryptocurrencies.nameToSymbol);
+            
+            let itemsArray = ts.get(name);
+            const symbolsArray = itemsArray.map(item => {
+                return item.value;
+            })
+            if(symbolsArray) {
+                resolve(symbolsArray);
+            } else {
+                return reject("Can not find the symbols.")
+            }
         })
-        
-        return symbolsArray;
     },
 
     symbolsToNames(symbol) {
-        const ts = new TrieSearch();
-        ts.addFromObject(cryptocurrencies.symbolToName);
-        let itemsArray = ts.get(symbol);
-        
-        const namesArray = itemsArray.map(item => {
-            return item.value;
+        return new Promise((resolve, reject) => {
+            const ts = new TrieSearch();
+            ts.addFromObject(cryptocurrencies.symbolToName);
+            let itemsArray = ts.get(symbol);
+            
+            const namesArray = itemsArray.map(item => {
+                return item.value;
+            })
+            if (namesArray) {
+                resolve(namesArray);
+            } else {
+                return reject("Can not find the names.")
+            }
         })
-        
-        return namesArray;
     },
 
 }
