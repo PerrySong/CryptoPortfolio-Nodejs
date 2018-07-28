@@ -1,5 +1,5 @@
 # API Documentation
-    Go to  http://18.204.49.151 to try our API!
+Go to  [http://18.204.49.151](http://18.204.49.151) to try our API!
 
 ### Important!
 *All the array parameters are not available, you can only pass one single parameter instead!*
