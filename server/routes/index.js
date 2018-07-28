@@ -77,7 +77,7 @@ module.exports = (app) => {
     //Recommendation:
     // req: number/Integer method/String
     app.post('/user/recommend/coins', recommendationController.recommendCoins);
-    app.post('/user/recommend/users', recommendationController.recommendUsers);
+    // app.post('/user/recommend/users', recommendationController.recommendUsers);
 
     
     //It is a route for test

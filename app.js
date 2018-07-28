@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const schedule = require('node-schedule');
 const notification = require('./server/services/notification');
+const recommendation = require('./server/services/recommendation');
 
 // const search = require('./server/helpers/crypto-search/search');
 
@@ -14,8 +15,13 @@ var j = schedule.scheduleJob('0 0 8 * * *', function(){
   notification.pushNotification();
 });
 
+schedule.scheduleJob('0 * * * * *', function(){
+  console.log("Update similarity")
+  recommendation.updateSimilarity();
+});
+
 // Set up the express app
-const app = express();
+const app = express('');
 
 // Log requests to the console.
 app.use(logger('dev'));

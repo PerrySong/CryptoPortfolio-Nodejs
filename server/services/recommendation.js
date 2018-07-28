@@ -1,7 +1,9 @@
 const User = require('../models').User,
       Portfolio = require('../models').Portfolio,
       Coin = require('../models').Coin,
-      raccoon = require('raccoon');
+      raccoon = require('raccoon'),
+      Sequelize = require('sequelize'),
+      Op = Sequelize.Op;
    
 /**
     K-Nearest Neighbors Algorithm for Recommendations
@@ -13,82 +15,72 @@ const User = require('../models').User,
     nearest neighbors. recommendation Raccoon uses a default value of 5, but this can easily be changed 
     based on your needs.
 */
-const recommendCoins = (req, res, userToCoin, username, recommendNumber, recommendMethod) => {
-    //To be continue....
-    Object.keys(userToCoin).forEach(username => {
-        Object.keys(userToCoin[username]).forEach(coin => {
-            if (userToCoin[username][coin] > 0) {
-                raccoon.liked(username, coin);
-            } else if (userToCoin[username][coin] < 0) {
-                raccoon.disliked(username, coin);
-            }
-        })
-    })
-    console.log(recommendMethod)
-    // If the method is recommendCoins: 
-    if (recommendMethod === 'recommendCoins') {
-        raccoon.recommendFor(username, recommendNumber).then((results) => {
-            console.log(results)
-            res.status(200).send(results)
-        });
-    } else if (recommendMethod === 'recommendUsers') {
-        raccoon.mostSimilarUsers(username).then((results) => {
-            res.status(200).send(results)
-        });
-    } else {
-
-        res.status(400).send({error: 'Please provide a valid recommend method'})
-    }
-
+const recommendCoins = (req, res) => {
+    var recommendNumber = req.body.number
+    const recommendMethod = req.body.method
+    const user = req.currentUser
+    Portfolio.find({where:{userId:user.id}})
+    .then(portfolio => {
+        if (recommendMethod == 'recommendCoins') {
+            raccoon.recommendFor(portfolio.id, recommendNumber).then((results) => {
+                console.log(results)
+                res.status(200).send(results)
+            });
+        } else if (recommendMethod == 'recommendPortfolio') {
+            // raccoon.mostSimilarUsers('portfolioId').then((results) => {
+            //     // returns an array of the 'similarityZSet' ranked sorted set for the user which
+            //     // represents their ranked similarity to all other users given the
+            //     // Jaccard Coefficient. the value is between -1 and 1. -1 means that the
+            //     // user is the exact opposite, 1 means they're exactly the same.
+            //     // ex. results = ['garyId', 'andrewId', 'jakeId']
+            // });
+        }
+        
+    })  
 }
 
 
-const recommend = (req, res) => {
-    const recommendNumber = req.body.number
-    const recommendMethod = req.body.method
-    var userToCoin = new Object;
-    
+const updateSimilarity = (req, res) => {
     User.findAll()
     .then(function(users) {
         if (users) {
-            users.map(function(user) {
-                if (user) {
-                    Portfolio.findOne({where:{userId: user.id}})
-                    .then(portfolio => {
-                        if (portfolio) {
-                            Coin.findAll({where:{portfolioId: portfolio.id}})
-                            .then(coins => {
-                                console.log('Coin')
-                                const coinToAmount = new Object;
-                                coins.forEach(coin => {
-                                    coinToAmount[coin.type] = coin.amount;
-                                });
-                                return coinToAmount;
-                            })
-                            .then(coinToAmount => {
-                                userToCoin[user.username] = coinToAmount
-                            })
-                            .catch(err => console.log("ERORRRRRRRRRRR" + err))
-                            
-                        }
-                    })
-                    .catch(err => console.log("ERORRRRRRRRRRR" + err))  
+            const usersId = users.map(user => {
+                return user.id
+            })
+
+            Portfolio.findAll({
+                where: {
+                    userId: {
+                        [Op.or]: usersId
+                    }
                 }
             })
+            .then(portfolios => {
+                portfolios.map(portfolio => {
+                    Coin.findAll({where:{portfolioId: portfolio.id}})
+                    .then(coins => {
+                        coins.forEach(coin => {
+                            if (coin.amount > 0) {
+                                console.log('ha')
+                                raccoon.liked(portfolio.id, coin.type);
+                                console.log('lo')
+                            } else if (coin.amount < 0) {
+                                raccoon.disliked(portfolio.id, coin.type);
+                            } else {
+                                raccoon.unliked(portfolio.id, coin.type);
+                                raccoon.undisliked(portfolio.id, coin.type);
+                            }
+                        })
+                    })
+                })
+            })
         }
-        
     })
     .catch(err => console.log("ERORRRRRRRRRRR" + err)) 
-
-    setTimeout(function(){
-        recommendCoins(req, res, userToCoin, req.currentUser.username, recommendNumber, recommendMethod);       
-    },1000);
-
-    
-
-    return userToCoin;         
+     
 }
 
 module.exports = {
-    recommend
+    recommendCoins,
+    updateSimilarity
 }   
