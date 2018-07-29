@@ -10,10 +10,10 @@ const recommendation = require('./server/services/recommendation');
 
 
 //Send email notification to user at 8am every day
-var j = schedule.scheduleJob('0 * * * * *', function(){
-  console.log("sent email")
-  notification.pushNotification();
-});
+// var j = schedule.scheduleJob('0 * * * * *', function(){
+//   console.log("sent email")
+//   notification.pushNotification();
+// });
 
 
 // schedule.scheduleJob('0 * * * * *', function(){

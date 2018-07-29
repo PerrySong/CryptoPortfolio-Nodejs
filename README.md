@@ -39,7 +39,7 @@ Go to  [http://18.204.49.151](http://18.204.49.151) to try our API!
   	* [Administration](#administration)  
 	* [Administration Registration](#administration-register)  
 	* [Administrator List Users](#administration-list-users)  
-	* [Administrator Send Email to All Users](#administration-send-email-to-all-users)  
+	* [Administrator Send Email to All Users](#administrator-send-email-to-all-users)  
 
 * Transaction
     * [Make Tansaction](#make-transaction)
