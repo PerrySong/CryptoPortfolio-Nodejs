@@ -177,6 +177,7 @@ module.exports = {
                 .create(createUser)
                 .then(user => {
                     if (user) {
+                        createPortfolio(user)
                         createProfile(user);
                     } 
                 })

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Users', {
@@ -42,22 +42,13 @@ module.exports = {
         defaultValue: true,
         type: Sequelize.BOOLEAN, 
       },
-      subscribes: {
-        type: Sequelize.ARRAY(Sequelize.STRING)
-      },
+      
       administrator: {
         defaultValue: false,
         type: Sequelize.BOOLEAN,
       },
     });
   },
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('yourTableName', 'firstNewColumnName', Sequelize.STRING)
-        .then(_ => queryInterface.addColumn('yourTableName', 'secondNewColumnName', Sequelize.STRING))
-        .then(_ => queryInterface.addColumn('yourTableName', 'thirdNewColumnName', Sequelize.STRING));
-    },
-  },
-
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Users');
   }

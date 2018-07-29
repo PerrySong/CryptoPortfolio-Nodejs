@@ -65,6 +65,7 @@ formDailyAlert = (user) => {
 }
 
 pushNotification = () => {
+    console.log("pushNotification")
     const subject = 'Crypto Currency Flutuate'
     
     User.findAll({})
@@ -91,7 +92,7 @@ pushNotification = () => {
                                         return message
                                     })
                                     .then(message => {
-                                        console.log("mmmmessage: " + message);
+                                        console.log("message: " + message);
                                         sendEmailNotification(subject, '', users[i].firstname, message, users[i].email);
                                     })
                                     .catch(error => console.log(error))
@@ -103,7 +104,7 @@ pushNotification = () => {
                                         return message
                                     })
                                     .then(message => {
-                                        console.log("mmmmessage: " + message);
+                                        console.log("message: " + message);
                                         sendEmailNotification(subject, '', users[i].firstname, message, users[i].email);
                                     })
                                     .catch(error => console.log(error))

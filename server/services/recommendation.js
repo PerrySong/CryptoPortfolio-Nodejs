@@ -41,43 +41,16 @@ const recommendCoins = (req, res) => {
 
 
 const updateSimilarity = (req, res) => {
-    User.findAll()
-    .then(function(users) {
-        if (users) {
-            const usersId = users.map(user => {
-                return user.id
-            })
-
-            Portfolio.findAll({
-                where: {
-                    userId: {
-                        [Op.or]: usersId
-                    }
-                }
-            })
-            .then(portfolios => {
-                portfolios.map(portfolio => {
-                    Coin.findAll({where:{portfolioId: portfolio.id}})
-                    .then(coins => {
-                        coins.forEach(coin => {
-                            if (coin.amount > 0) {
-                                console.log('ha')
-                                raccoon.liked(portfolio.id, coin.type);
-                                console.log('lo')
-                            } else if (coin.amount < 0) {
-                                raccoon.disliked(portfolio.id, coin.type);
-                            } else {
-                                raccoon.unliked(portfolio.id, coin.type);
-                                raccoon.undisliked(portfolio.id, coin.type);
-                            }
-                        })
-                    })
-                })
-            })
-        }
+    const user = req.currentUser;
+    User.find({ where : {id: user.id } })
+    .then(curUser => {
+        var mySubs = curUser.suscribes
+        User.findAdd() //Contains 'me'
+        .then(users => {
+            
+        })
     })
-    .catch(err => console.log("ERORRRRRRRRRRR" + err)) 
-     
+   
 }
 
 module.exports = {
