@@ -17,6 +17,6 @@ module.exports = {
             
         })
         .then(res.status(200).send({ message: 'Success' }))
-        .catch(err => { error: err })
+        .catch(err => res.status(200).send({ error: err }))
     }
 }
