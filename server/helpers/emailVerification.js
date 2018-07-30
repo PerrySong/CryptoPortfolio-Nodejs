@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 const uniqid = require('uniqid');
 const md5 = require('md5');
+const teamEmail = 'cryptotrackerservices@gmail.com';
+const teamEmailPassword = 'crypto5656';
 
 //This method will send a link to the user's email, ask the user to activate his/her account
 sendVerifyEmail = (req, res) => {
@@ -33,8 +35,8 @@ sendVerifyEmail = (req, res) => {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'cryptotrackerservices@gmail.com',
-          pass: 'crypto5656'
+          user: teamEmail,
+          pass: teamEmailPassword
         }  
     });
     transporter.sendMail(mailOptions, (error, info) => {

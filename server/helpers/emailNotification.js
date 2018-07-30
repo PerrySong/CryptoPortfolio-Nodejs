@@ -1,15 +1,16 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const hmtlTemplate = require('../views/emailHtmlTemplate');
-//This method will send a link to the user's email, ask the user to activate his/her account
+const teamEmail = 'cryptotrackerservices@gmail.com';
+const teamEmailPassword = 'crypto5656';
+
 sendEmail = (req, res, subject, message, html, emailList) => {
      
-    
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'cryptotrackerservices@gmail.com',
-          pass: 'crypto5656'
+            user: teamEmail,
+            pass: teamEmailPassword
         }  
     });
 
@@ -50,8 +51,8 @@ sendEmailNotification = (subject, message, user, content, emailList) => {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'cryptotrackerservices@gmail.com',
-          pass: 'crypto5656'
+            user: teamEmail,
+            pass: teamEmailPassword
         }  
     });
     transporter.sendMail(mailOptions, (error, info) => {
