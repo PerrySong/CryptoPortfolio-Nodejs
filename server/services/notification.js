@@ -5,8 +5,10 @@ const Portfolio = require('../models').Portfolio
 const Coin = require('../models').Coin
 const cryptoCompare = require('./cryptoCompare')
 
-//This method will send a link to the user's email, ask the user to activate his/her account
-sendEmail = (req, res, subject, message, html, emailList) => {
+//This method sends a link to the user's email, ask the user to activate his/her account
+sendEmail = (req, res, subject, message, content, emailList, user) => {
+    
+    let html = hmtlTemplate.formNotificationHtml(user, content);
 
     let mailOptions = {
         from: '"Crypto Team" <cryptotrackerservices@gmail.com>', // sender address
@@ -24,14 +26,13 @@ sendEmail = (req, res, subject, message, html, emailList) => {
     });
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            res.status(400).send({
-                error: error
-            })
+            console.log(error)
         }
     })
     
 },
 
+// This method sends a message to a users
 sendEmailNotification = (subject, message, firstname, content, emailList) => {
     
     let html = hmtlTemplate.formNotificationHtml(firstname, content);
@@ -61,7 +62,6 @@ sendEmailNotification = (subject, message, firstname, content, emailList) => {
 
 formDailyAlert = (user) => {
     
-
 }
 
 pushNotification = () => {
@@ -70,22 +70,27 @@ pushNotification = () => {
     
     User.findAll({})
     .then(users => {
-        for(let i = 0; i < users.length; i++) {
-            if(users[i].public === true) {
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].public === true) {
                 subscribeCoins = users[i].subscribes
-                console.log(subscribeCoins[0])
-                let d = new Date(); // Today!
-                d.setDate(d.getDate() - 1); // Yesterday!
-                cryptoCompare.histoDay(maxCoin.type, 'USD', {timestamp: d})
-                .then(info => {
-                    let message = `The ${maxCoin.type} high: ${info[0].high}, low: ${info[0].low}, close: ${info[0].close}, open: ${info[0].open}`
-                    return message
-                })
-                .then(message => {
-                    console.log("message: " + message);
-                    sendEmailNotification(subject, '', users[i].firstname, message, users[i].email);
-                })
-                .catch(error => console.log(error))
+                if (!subscribeCoins || !subscribeCoins[0]) {
+
+                } else {
+                    console.log(subscribeCoins[0])
+                    let d = new Date(); // Today!
+                    d.setDate(d.getDate() - 1); // Yesterday!
+                    cryptoCompare.histoDay(maxCoin.type, 'USD', {timestamp: d})
+                    .then(info => {
+                        let message = `The ${maxCoin.type} high: ${info[0].high}, low: ${info[0].low}, close: ${info[0].close}, open: ${info[0].open}`
+                        return message
+                    })
+                    .then(message => {
+                        console.log("message: " + message);
+                        sendEmailNotification(subject, '', users[i].firstname, message, users[i].email);
+                    })
+                    .catch(error => console.log(error))
+                }
+                
 
                 // Portfolio.findOne({where: {userId: users[i].id}})
                 // .then(portfolio => {

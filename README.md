@@ -37,8 +37,8 @@ Go to  [http://18.204.49.151](http://18.204.49.151) to try our API!
 
  * Administration  
   	* [Administration](#administration)  
-	* [Administration Registration](#administration-register)  
-	* [Administrator List Users](#administration-list-users)  
+	* [Administration Registration](#administrator-register)  
+	* [Administrator List Users](#administrator-list-users)  
 	* [Administrator Send Email to All Users](#administrator-send-email-to-all-users)  
 
 * Transaction
@@ -687,7 +687,7 @@ Congratulation! You are all set.
     ------------ | ------------- | ------------------- | -----------
     subject      | string        | Optional            | subject
     message      | string        | Optional            | message
-    html         | string        | Optional            | html included in email
+    content      | string        | Optional            | html content included in email
     
 ---
 
