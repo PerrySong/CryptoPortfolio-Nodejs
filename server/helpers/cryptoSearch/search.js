@@ -4,6 +4,7 @@ const TrieSearch = require('trie-search'),
 
       
 module.exports = {
+    
     searchNames(name) {
         return new Promise((resolve, reject) => {
             const ts = new TrieSearch();

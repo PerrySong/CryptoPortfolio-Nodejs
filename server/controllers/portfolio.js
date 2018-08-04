@@ -60,7 +60,8 @@ module.exports = {
                         income_type: req.body.income_type,
                         income_price: req.body.income_price,
                         income_amount: req.body.income_amount,
-                        portfolioId: curPortfolio.id
+                        portfolioId: curPortfolio.id,
+                        userId: user.id
                     })
                     .then(newTransaction => {
                         

@@ -19,7 +19,10 @@ const recommendCoins = (req, res) => {
     var recommendNumber = req.body.number
     const recommendMethod = req.body.method
     const user = req.currentUser
+    User
+
     Portfolio.find({where:{userId:user.id}})
+
     .then(portfolio => {
         if (recommendMethod == 'recommendCoins') {
             raccoon.recommendFor(portfolio.id, recommendNumber).then((results) => {
@@ -40,7 +43,7 @@ const recommendCoins = (req, res) => {
 }
 
 
-const updateSimilarity = (req, res) => {
+const updateSimilarity = () => {
     const user = req.currentUser;
     User.find({ where : {id: user.id } })
     .then(curUser => {
