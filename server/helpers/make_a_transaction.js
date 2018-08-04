@@ -7,7 +7,7 @@ const cryptoNameToSymbol = require('./cryptoSearch/cryptocurrencies')
 
 
 
-updateWallet = (portfolio, type, amount) => {
+updateWallet = (userId, portfolio, type, amount) => {
     console.log("Here!!!")
     if (portfolio){
         Coin.findOne({
@@ -21,23 +21,25 @@ updateWallet = (portfolio, type, amount) => {
             if (curCoin){
                 let newAmount = Number(curCoin.amount) + Number(amount)
                 curCoin.update({
-                    amount: newAmount
+                    amount: newAmount,
+                    userId: userId
                 })
-                .catch(err => console.log(err));
+                .catch((err) => res.status(400).send({error: err}));  // Did not pass 'res' to updateWallet
             } else {
                 return Coin
                 .create({
                     type: type,
                     amount: amount,
-                    portfolioId: portfolio.id
+                    portfolioId: portfolio.id,
+                    userId: userId
                 })
                 .then(curCoin => console.log(curCoin))
-                .catch(err => console.log(err));
+                .catch((err) => res.status(400).send({error: err})); // Did not pass 'res' to updateWallet
             }
         })
-        .catch(err => console.log(err));
+        .catch(err => res.status(400).send(err)); // Did not pass 'res' to updateWallet
     } else {
-        return console.log('message: portfolio error')
+        return res.status(403).send({message: 'portfolio error' }) // Did not pass 'res' to updateWallet
     }
 }
 
@@ -78,8 +80,8 @@ for (var i = 0; i < 1000; i++) {
                     return Transaction
                     .create(randomTransaction())
                     .then(newTransaction => {
-                        updateWallet(curPortfolio, newTransaction.sell_type, -newTransaction.sell_amount)
-                        updateWallet(curPortfolio, newTransaction.income_type, newTransaction.income_amount)
+                        updateWallet(user.id, curPortfolio, newTransaction.sell_type, -newTransaction.sell_amount)
+                        updateWallet(user.id, curPortfolio, newTransaction.income_type, newTransaction.income_amount)
                     })
                     .catch(err => console.log({error: err}));
                 } else {

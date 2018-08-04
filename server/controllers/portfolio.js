@@ -3,7 +3,7 @@ const Coin = require('../models').Coin;
 const Transaction = require('../models').Transaction;
 
 
-updateWallet = (portfolio, type, amount) => {
+updateWallet = (userId, portfolio, type, amount) => {
     console.log("Here!!!")
     if (portfolio){
         Coin.findOne({
@@ -17,7 +17,8 @@ updateWallet = (portfolio, type, amount) => {
             if (curCoin){
                 let newAmount = Number(curCoin.amount) + Number(amount)
                 curCoin.update({
-                    amount: newAmount
+                    amount: newAmount,
+                    userId: userId
                 })
                 .catch((err) => res.status(400).send({error: err}));  // Did not pass 'res' to updateWallet
             } else {
@@ -25,7 +26,8 @@ updateWallet = (portfolio, type, amount) => {
                 .create({
                     type: type,
                     amount: amount,
-                    portfolioId: portfolio.id
+                    portfolioId: portfolio.id,
+                    userId: userId
                 })
                 .then(curCoin => console.log(curCoin))
                 .catch((err) => res.status(400).send({error: err})); // Did not pass 'res' to updateWallet
@@ -65,8 +67,8 @@ module.exports = {
                     })
                     .then(newTransaction => {
                         
-                        updateWallet(curPortfolio, req.body.sell_type, -req.body.sell_amount),
-                        updateWallet(curPortfolio, req.body.income_type, req.body.income_amount),
+                        updateWallet(user.id, curPortfolio, req.body.sell_type, -req.body.sell_amount),
+                        updateWallet(user.id, curPortfolio, req.body.income_type, req.body.income_amount),
                         res.status(200).send(newTransaction)
                     })
                     .catch(err => res.status(400).send({error: err}));
