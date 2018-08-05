@@ -15,48 +15,82 @@ const User = require('../models').User,
     nearest neighbors. recommendation Raccoon uses a default value of 5, but this can easily be changed 
     based on your needs.
 */
-const recommendCoins = (req, res) => {
-    var recommendNumber = req.body.number
-    const recommendMethod = req.body.method
-    const user = req.currentUser
-    User
-
-    Portfolio.find({where:{userId:user.id}})
-
-    .then(portfolio => {
-        if (recommendMethod == 'recommendCoins') {
-            raccoon.recommendFor(portfolio.id, recommendNumber).then((results) => {
-                console.log(results)
-                res.status(200).send(results)
-            });
-        } else if (recommendMethod == 'recommendPortfolio') {
-            // raccoon.mostSimilarUsers('portfolioId').then((results) => {
-            //     // returns an array of the 'similarityZSet' ranked sorted set for the user which
-            //     // represents their ranked similarity to all other users given the
-            //     // Jaccard Coefficient. the value is between -1 and 1. -1 means that the
-            //     // user is the exact opposite, 1 means they're exactly the same.
-            //     // ex. results = ['garyId', 'andrewId', 'jakeId']
-            // });
-        }
-        
-    })  
-}
-
-
-const updateSimilarity = () => {
-    const user = req.currentUser;
-    User.find({ where : {id: user.id } })
-    .then(curUser => {
-        var mySubs = curUser.suscribes
-        User.findAdd() //Contains 'me'
-        .then(users => {
-            
+const recommendCoins = (req, res, userToCoin, username, recommendNumber, recommendMethod) => {
+    //To be continue....
+    Object.keys(userToCoin).forEach(username => {
+        Object.keys(userToCoin[username]).forEach(coin => {
+            if (userToCoin[username][coin] > 0) {
+                raccoon.liked(username, coin);
+            } else if (userToCoin[username][coin] < 0) {
+                raccoon.disliked(username, coin);
+            }
         })
     })
-   
+    console.log(recommendMethod)
+    if (recommendMethod == 'recommendCoins') {
+        raccoon.recommendFor(username, recommendNumber).then((results) => {
+            console.log(results)
+            res.status(200).send(results)
+        });
+    } else if (recommendMethod == 'recommendUsers') {
+        raccoon.mostSimilarUsers(username).then((results) => {
+            res.status(200).send(results)
+        });
+    } else {
+
+        res.status(400).send({error: 'Please provide a valid recommend method'})
+    }
+
 }
 
+
+const recommend = (req, res) => {
+    const recommendNumber = req.body.number
+    const recommendMethod = req.body.method
+    var userToCoin = new Object;
+
+    User.findAll()
+    .then(function(users) {
+        if (users) {
+            users.map(function(user) {
+                if (user) {
+                    Portfolio.findOne({where:{userId: user.id}})
+                    .then(portfolio => {
+                        if (portfolio) {
+                            Coin.findAll({where:{portfolioId: portfolio.id}})
+                            .then(coins => {
+                                const coinToAmount = new Object;
+                                coins.forEach(coin => {
+                                    coinToAmount[coin.type] = coin.amount;
+                                });
+                                return coinToAmount;
+                            })
+                            .then(coinToAmount => {
+                                userToCoin[user.username] = coinToAmount
+                            })
+                            .catch(err => console.log("ERORRRRRRRRRRR" + err))
+                            
+                        }
+                    })
+                    .catch(err => console.log("ERORRRRRRRRRRR" + err))  
+                }
+            })
+        }
+        
+    })
+    .catch(err => console.log("ERORRRRRRRRRRR" + err)) 
+
+    setTimeout(function(){
+        recommendCoins(req, res, userToCoin, req.currentUser.username, recommendNumber, recommendMethod);       
+    },100);
+
+    return userToCoin;         
+}
+
+
+
+
 module.exports = {
-    recommendCoins,
-    updateSimilarity
+    recommend
 }   
+

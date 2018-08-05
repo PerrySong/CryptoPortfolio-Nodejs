@@ -2,8 +2,7 @@ const User = require('../models').User,
       Portfolio = require('../models').Portfolio,
       Coin = require('../models').Coin
 
-    
-    getUsersAsset = () => {
+    const getUsersAsset = () => {
         return User.findAll({
             include: [
               {
@@ -20,7 +19,7 @@ const User = require('../models').User,
                         {
                             userId: user.id,
                             username: user.username,
-                            coins: user.coins
+                            coins: JSON.stringify(user.coins)
                         }
                     )
                 }
@@ -29,7 +28,7 @@ const User = require('../models').User,
         })
     } 
 
-    getPortfolioAsset = () => {
+    const getPortfolioAsset = () => {
         return Portfolio.findAll({
             include: [
                 {
@@ -54,7 +53,7 @@ const User = require('../models').User,
         })
     }
 
-    test = () => {
+    const test = () => {
         return User.findAll({
             include: {
                 model: Portfolio,
@@ -78,33 +77,8 @@ const User = require('../models').User,
         
     }
 
-    getUsersAsset()
-    .then(data => {
-        console.log(data)
-    })
 
-    // test()
-    // .then(data => {
-    //     console.log(data)
-    // })
-
-    // getPortfolioAsset()
-    // .then(data => {
-    //     console.log(data)
-    // })
-
-    // console.log('finish')   
-    // console.log();
 module.exports = {
-    getUsersAsset() {
-        return User.findAll({
-            include: [
-                { 
-                    model: Portfolio, 
-                    required: true,
-                    include: [Coin]
-                }
-            ]
-        })
-    }
+    getUsersAsset,
+    getPortfolioAsset
 }

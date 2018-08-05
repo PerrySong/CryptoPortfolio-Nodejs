@@ -8,7 +8,7 @@ const usersController = require('../controllers').user,
       formatChecker = require('../helpers/formatChecker'),
       administratorController = require('../controllers').administrator,
       cryptoInfoController = require('../controllers').cryptoInfo,
-      recommendationController = require('../controllers').recommendation,
+    //   recommendationController = require('../controllers').recommendation,
       subscribeController = require('../controllers').subscribe
 
     
@@ -79,7 +79,10 @@ module.exports = (app) => {
 
     //Recommendation:
     // req: number/Integer method/String
-    app.post('/user/recommend/coins', recommendationController.recommendCoins);
+    // app.post('/user/recommend/coins', recommendationController.recommendCoins);
+    // app.post('/user/recommend/users', recommendationController.recommendUsers);
+    // req: number/Integer method/String
+    // app.post('/user/recommend/coins', recommendationController.recommendCoins);
     // app.post('/user/recommend/users', recommendationController.recommendUsers);
 
     //Route for subscribe

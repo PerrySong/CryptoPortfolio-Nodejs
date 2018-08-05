@@ -1,4 +1,5 @@
 const cs = require('../helpers/cryptoSearch/search')
+
 check = (req, res, next) => {
     
     if (req.body.symbol) {
