@@ -2,7 +2,49 @@ const User = require('../models').User,
       Portfolio = require('../models').Portfolio,
       Coin = require('../models').Coin
 
-    const getUsersAsset = () => {
+    const getUserAsset = (userId) => {
+        console.log('heheh')
+        return User.find(
+            { where: { id: userId }, 
+            
+                include: 
+                    [{
+                        model: Coin,
+                        as: 'coins'
+                    }]
+            })
+            .then(user => {
+                // console.log(user)
+                if (user) {
+
+                    console.log('yoyoyoyoyo')
+                    console.log(user)
+                    return Object.assign(
+                        {},
+                        {
+                            userId: userId,
+                            coins: { 
+                                        type: user.coins.type
+                                     
+                                    }
+                        }
+                    )
+                } else {
+                    return 'Invalid userId'
+                }
+            })
+            .catch(err => {
+                console.log('??')
+                return {error: err};
+            })
+
+    } 
+
+    // getUserAsset('user-4nx8as19dljk7jtsla')
+    // .then(data => console.log(data))
+    
+
+    const getAllUsersAsset = () => {
         return User.findAll({
             include: [
               {
@@ -27,6 +69,10 @@ const User = require('../models').User,
             return resObj
         })
     } 
+
+    // getUserAsset()
+    // .then(data => console.log(data))
+    
 
     const getPortfolioAsset = () => {
         return Portfolio.findAll({
@@ -79,6 +125,6 @@ const User = require('../models').User,
 
 
 module.exports = {
-    getUsersAsset,
+    getUserAsset,
     getPortfolioAsset
 }

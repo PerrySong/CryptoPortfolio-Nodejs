@@ -1,6 +1,7 @@
 const Portfolio = require('../models').Portfolio;
 const Coin = require('../models').Coin;
 const Transaction = require('../models').Transaction;
+const getUsersAsset = require('../services/getUsersAsset');
 
 
 updateWallet = (userId, portfolio, type, amount) => {
@@ -82,6 +83,16 @@ module.exports = {
         }
     },
 
+    getAUserAsset(req, res) {
+        getUsersAsset.getUserAsset(req.body.userId)
+        .then(assets => {
+            if (assets) {
+                res.status(200).send(asset)
+            }
+        })
+        .catch(err => res.status(200).send({error: err}))
+    },
+
     currentAsset(req, res) {
         const user = req.currentUser;
         if (user) {
@@ -124,14 +135,12 @@ module.exports = {
     },
 
     listPortfolio(req, res) {
-            return Coin
-                .findAll({
-    
-                })
-                .then((ps) => res.status(200).send(ps))
-                .catch((error) =>   {
-                    res.status(400).send(error)
-                    console.log("error = " + error)
-                });
-        },
+        return Coin
+            .findAll()
+            .then((ps) => res.status(200).send(ps))
+            .catch((error) =>   {
+                res.status(400).send(error)
+                console.log("error = " + error)
+            });
+    },
 }

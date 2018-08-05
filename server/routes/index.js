@@ -69,6 +69,7 @@ module.exports = (app) => {
     app.get('/user/asset', portfolioController.currentAsset);
     app.post('/user/make-transaction', portfolioController.createTransaction);
     app.get('/user/transactions', portfolioController.transactionHistory);
+    app.post('/user/others/assets', portfolioController.getAUserAsset);
 
     //Coins infomations routes:
     app.get('/user/coinlist', cryptoInfoController.coinList);
