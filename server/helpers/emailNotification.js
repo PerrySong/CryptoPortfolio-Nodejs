@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const hmtlTemplate = require('../views/emailHtmlTemplate');
 const teamEmail = 'cryptotrackerservices@gmail.com';
-const teamEmailPassword = 'crypto5656';
+const teamEmailPassword = 'Spf13609629560';
 
 sendEmail = (req, res, subject, message, html, emailList) => {
      

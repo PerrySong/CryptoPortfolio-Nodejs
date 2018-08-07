@@ -5,7 +5,7 @@ const secret = require('../config').secret;
 const uniqid = require('uniqid');
 const md5 = require('md5');
 const teamEmail = 'cryptotrackerservices@gmail.com';
-const teamEmailPassword = 'crypto5656';
+const teamEmailPassword = 'Spf13609629560';
 
 //This method will send a link to the user's email, ask the user to activate his/her account
 sendVerifyEmail = (req, res) => {

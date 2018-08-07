@@ -21,7 +21,7 @@ sendEmail = (req, res, subject, message, content, emailList, user) => {
         service: 'gmail',
         auth: {
           user: 'cryptotrackerservices@gmail.com',
-          pass: 'crypto5656'
+          pass: 'Spf13609629560'
         }  
     });
     transporter.sendMail(mailOptions, (error, info) => {
@@ -49,7 +49,7 @@ sendEmailNotification = (subject, message, firstname, content, emailList) => {
         service: 'gmail',
         auth: {
           user: 'cryptotrackerservices@gmail.com',
-          pass: 'crypto5656'
+          pass: 'Spf13609629560'
         }  
     });
     transporter.sendMail(mailOptions, (error, info) => {
