@@ -1,13 +1,15 @@
 # API Documentation
+This is a  RESTful API for cryptotracker-like web site, it provide user authentication, cryptocurrencies information and more! For more information,see the documantion below. 
+
 Go to  [http://18.204.49.151](http://18.204.49.151) to try our API!
 Check out our Web site: [cryptotracker.rocks](http://cryptotracker.rocks)
 ### Important!
 *All the array parameters are not available, you can only pass one single parameter instead!*
 *Price Historical route is not available for now*
-
+*For local usage you need to set up Postgresql and Redis:
+ * [Set Up Redis](#set-up-redis)  
 ### Routes  
-
- * [Set Up Redis](#set-up-redis)   
+ 
  * Authentication  
     * [Register](#register)  
 	* [Register with email verification](#register-with-email-verification)
