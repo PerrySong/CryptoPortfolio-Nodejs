@@ -1,5 +1,7 @@
 # API Documentation
-This is a  RESTful API for cryptotracker-like web site, it provide user authentication, cryptocurrencies information and more! For more information,see the documantion below. 
+This is a  RESTful API for cryptotracker-like web site, it provide user authentication, cryptocurrencies information and more! 
+
+For more information,see the documantion below. 
 
 Go to  [http://18.204.49.151](http://18.204.49.151) to try our API!
 Check out our Web site: [cryptotracker.rocks](http://cryptotracker.rocks)
