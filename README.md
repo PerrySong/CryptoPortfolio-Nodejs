@@ -1,6 +1,6 @@
 # API Documentation
 Go to  [http://18.204.49.151](http://18.204.49.151) to try our API!
-
+Check out our Web site: [cryptotracker.rocks](http://cryptotracker.rocks)
 ### Important!
 *All the array parameters are not available, you can only pass one single parameter instead!*
 *Price Historical route is not available for now*
