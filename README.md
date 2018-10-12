@@ -3,7 +3,7 @@ This is a  RESTful API for cryptotracker-like web site, it provide user authenti
 
 For more information,see the documantion below. 
 
-Go to  [http://18.204.49.151](http://18.204.49.151) to try our API! :Note: currently not available 
+Go to  [https://crypto-portfolio-api.herokuapp.com/](https://crypto-portfolio-api.herokuapp.com/) to try our API! :Note: currently not available 
 Check out our Web site: [cryptotracker.rocks](http://cryptotracker.rocks)
 ### Important!
 *All the array parameters are not available, you can only pass one single parameter instead!*
