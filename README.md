@@ -3,13 +3,14 @@ This is a  RESTful API for cryptotracker-like web site, it provide user authenti
 
 For more information,see the documantion below. 
 
-Go to  [https://crypto-portfolio-api.herokuapp.com/](https://crypto-portfolio-api.herokuapp.com/) to try our API! :Note: currently not available 
-Check out our Web site: [cryptotracker.rocks](http://cryptotracker.rocks)
-### Important!
-*All the array parameters are not available, you can only pass one single parameter instead!*
-*Price Historical route is not available for now*
-*For local usage you need to set up Postgresql and Redis:
- * [Set Up Redis](#set-up-redis)  
+Go to  [cryptotracker.rocks](http://cryptotracker.rocks) to try our API!   
+Note: currently not available   
+
+
+### Important!  
+* Price Historical route is not available for now    
+* For local usage you need to set up Postgresql and Redis:
+* [Set Up Redis](#set-up-redis)  
 ### Routes  
  
  * Authentication  
