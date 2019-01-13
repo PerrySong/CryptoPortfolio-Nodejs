@@ -1,5 +1,5 @@
 # API Documentation
-This is a  RESTful API for cryptotracker-like web site, it provide user authentication, cryptocurrencies information and more! 
+This is a  RESTful API for cryptotracker-like web site, it provides user authentication, cryptocurrencies information query and more! 
 
 For more information,see the documantion below. 
 
